@@ -91,7 +91,7 @@ def list(client,message):
 @bot.on_message(filters.command('link') & filters.private)
 def get_link(client,message):
     save = './'+message.chat.username+'/'
-    val = message.command.split(' ')[-1]
+    val = message.command[-1]
     if os.path.exists(save):
         oslist = os.listdir(save)
         file = oslist[int(val)-1]
@@ -115,7 +115,7 @@ def get_link(client,message):
 def delete(client,message):
     save = './'+message.chat.username+'/'
     if os.path.exists(save):
-        val = message.command.split(' ')[-1]
+        val = message.command[-1]
         varios = val.split('-')
         if len(varios)>1:
             if os.path.exists(save):
