@@ -253,7 +253,7 @@ def download(client,message):
             reply_botton = InlineKeyboardMarkup(enlace_directo)
             bot.send_document(
                 message.chat.id,
-                f'./{message.chat.username}/name',
+                f'./{message.chat.username}/{name}',
                 progress=progressub,
                 reply_markup=reply_botton,
                 progress_args=(msg,bot,name,start),
@@ -261,7 +261,7 @@ def download(client,message):
                 caption=f"Enlace Directo:\n`{BOT_URL}/file/{message.chat.username}/{name}`"
             )
             msg = bot.send_message(message.chat.id, 'Subido Correctamente')
-        except: bot.edit_message_text(message.chat.id, msg.id, "❌ El Enlace no se pudo descargar ❌")
+        except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ El Enlace no se pudo descargar -> {e}❌")
         return
     #================Descargas de Google Drive===================
     elif 'drive.google.com' in message.text:
@@ -283,11 +283,11 @@ def download(client,message):
                 filename,
                 progress=progressub,
                 reply_markup=reply_botton,
-                progress_args=(msg,bot,name,start),
+                progress_args=(msg,bot,filename,start),
                 thumb='./Imagen.png',
                 caption=f"Enlace Directo:\n`{BOT_URL}/file/{message.chat.username}/{filename.split('/')[-1]}`"
             )
-        except: bot.edit_message_text(message.chat.id, msg.id, "❌ El Enlace no se pudo descargar ❌")
+        except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ El Enlace no se pudo descargar -> {e} ❌")
         return
 
     elif 'http' in message.text:
@@ -312,7 +312,7 @@ def download(client,message):
                 thumb='./Imagen.png',
                 caption=f"Enlace Directo:\n`{BOT_URL}/file/{message.chat.username}/{filename}`"
             )
-        except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ El Enlace no se pudo descargar {e} ❌")
+        except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ El Enlace no se pudo descargar -> {e} ❌")
         return
 
 

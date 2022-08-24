@@ -126,7 +126,6 @@ def compresionbot(bot,msg,client,save,zips):
                         reply_markup=reply_botton,
                         caption=f'`{BOT_URL}/file/{name.chat.username}/{filename}`'
                     )  
-                    os.remove('./'+file+'.'+str('%03d' % (cont)))
                     cont += 1 
             msg.delete()
             bot.send_message(msg.chat.id,'✅Subido Correctamente')
