@@ -122,13 +122,13 @@ def delete(client,message):
                 for v in val:
                     oslist = os.listdir(save)
                     file = oslist[int(v)-1]
-                    os.remove(f'./{message.chat.id}/{file}')
+                    os.remove(f'./{message.chat.username}/{file}')
                 message.reply('Archivos Eliminados Correctamente')
         else:
             if os.path.exists(save):
                 oslist = os.listdir(save)
                 file = oslist[int(val)-1]
-                os.remove(f'./{message.chat.id}/{file}')
+                os.remove(f'./{message.chat.username}/{file}')
                 message.reply('Archivo Eliminado Correctamente')
     else:
         bot.send_message(
@@ -169,6 +169,7 @@ def zip(client,message):
 """==============Descarga de Archivos de Internet================"""
 @bot.on_message(filters.regex('http') & filters.private | filters.regex('youtu') & filters.private | filters.regex('youtube') & filters.private)
 def download(client,message):
+    
     #==================Descagando Lista de Reproduccion======================
     if "playlist" in message.text:
         playlist = message.text

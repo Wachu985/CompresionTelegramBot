@@ -87,8 +87,8 @@ def compresionbot(bot,msg,client,save,zips):
         except asyncio.TimeoutError:
             msg.edit_text('🚫Tiempo de Espera Exedido🚫')
             return
-        print(f'./{msg.chat.username}/')
-        if os.path.exists(f'./{msg.chat.username}/'):
+        print(f'./{msg.from_user.username}/')
+        if os.path.exists(f'./{name.from_user.username}/'):
             file = name.text + '.zip'
             tama = int(calculador_tamaño(save)/1048576)
             tpart = int(zips.split('M')[0])
@@ -100,7 +100,7 @@ def compresionbot(bot,msg,client,save,zips):
                 msg.chat.id,
                 text
             )
-            comprimio,partes = split(compresion(file,save),f'./{msg.chat.username}/',getBytes(zips))
+            comprimio,partes = split(compresion(file,save),f'./{msg.from_user.username}/',getBytes(zips))
             subidas = str(partes -1)
             msg.delete()
             if comprimio:
@@ -111,7 +111,7 @@ def compresionbot(bot,msg,client,save,zips):
                     enlace_directo = [
                     [InlineKeyboardButton(
                         'Enlace Directo',
-                        url=f'{BOT_URL}/file/{msg.chat.username}/{filename}'
+                        url=f'{BOT_URL}/file/{msg.from_user.username}/{filename}'
                         ),
                         ]      
                     ]
@@ -124,7 +124,7 @@ def compresionbot(bot,msg,client,save,zips):
                         progress_args=(msg,bot,filename,start),
                         thumb='./Imagen.png',
                         reply_markup=reply_botton,
-                        caption=f'`{BOT_URL}/file/{msg.chat.username}/{filename}`'
+                        caption=f'`{BOT_URL}/file/{msg.from_user.username}/{filename}`'
                     )  
                     os.remove('./'+file+'.'+str('%03d' % (cont)))
                     cont += 1 
