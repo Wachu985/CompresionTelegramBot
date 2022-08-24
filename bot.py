@@ -169,7 +169,7 @@ def zip(client,message):
 """==============Descarga de Archivos de Internet================"""
 @bot.on_message(filters.regex('http') & filters.private | filters.regex('youtu') & filters.private | filters.regex('youtube') & filters.private)
 def download(client,message):
-    
+
     #==================Descagando Lista de Reproduccion======================
     if "playlist" in message.text:
         playlist = message.text
@@ -312,7 +312,7 @@ def download(client,message):
                 thumb='./Imagen.png',
                 caption=f"Enlace Directo:\n`{BOT_URL}/file/{message.chat.username}/{filename}`"
             )
-        except: bot.edit_message_text(message.chat.id, msg.id, "❌ El Enlace no se pudo descargar ❌")
+        except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ El Enlace no se pudo descargar {e} ❌")
         return
 
 
