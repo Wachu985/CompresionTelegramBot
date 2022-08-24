@@ -119,7 +119,7 @@ def compresionbot(bot,msg,client,save,zips):
                     start = time.time()
                     bot.send_document(
                         msg.chat.id,
-                        f'./{msg.chat.username}/'+file+'.'+str('%03d' % (cont)),
+                        f'./{name.chat.username}/'+file+'.'+str('%03d' % (cont)),
                         progress=progressub,
                         progress_args=(msg,bot,filename,start),
                         thumb='./Imagen.png',
