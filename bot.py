@@ -342,7 +342,7 @@ server = web.Application()
 server.router.add_get('/file/{route}/{file_name}', download_file)
 runner = web.AppRunner(server)
 
-async def despertar(sleep_time=5 * 60):
+async def despertar(sleep_time=TIME_WAKE * 60):
     while True:
         await sleep(sleep_time)
         async with ClientSession() as session:
