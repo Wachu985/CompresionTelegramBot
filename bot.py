@@ -182,7 +182,7 @@ def download(client,message):
         username = message.chat.username
         try:
             msg = bot.send_message(message.chat.id,'⏫Descargando Videos... Por Favor Espere')
-            save,title = downloadlist(playlist,res,username)
+            save,title = downloadlist(playlist,res.text,username)
             file = title+'.zip'
             msg.delete()
             msg = bot.send_message(message.chat.id,'📚Comprimiendo Archivos')
