@@ -171,7 +171,7 @@ def download(client,message):
     #==================Descagando Lista de Reproduccion======================
     if "playlist" in message.text:
         playlist = message.text
-        msg = bot.send_message(msg.chat.id,'🖌Escriba la Resolucion de los Videos:👇 Tiene 8 seg...')
+        msg = bot.send_message(message.chat.id,'🖌Escriba la Resolucion de los Videos:👇 Tiene 8 seg...')
         try:
             res = asyncio.run(client.listen.Message(filters.chat(msg.chat.id), timeout = 8))
         except asyncio.TimeoutError:

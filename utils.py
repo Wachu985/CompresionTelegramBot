@@ -87,6 +87,7 @@ def compresionbot(bot,msg,client,save,zips):
         except asyncio.TimeoutError:
             msg.edit_text('🚫Tiempo de Espera Exedido🚫')
             return
+        print(f'./{msg.chat.username}/')
         if os.path.exists(f'./{msg.chat.username}/'):
             file = name.text + '.zip'
             tama = int(calculador_tamaño(save)/1048576)
