@@ -261,6 +261,7 @@ def download(client,message):
                 thumb='./Imagen.png',
                 caption=f"Enlace Directo:\n`{BOT_URL}/file/{message.chat.username}/{name}`"
             )
+            msg.delete()
             msg = bot.send_message(message.chat.id, 'Subido Correctamente')
         except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ El Enlace no se pudo descargar -> {e}❌")
         return
@@ -285,10 +286,11 @@ def download(client,message):
                 filename,
                 progress=progressub,
                 reply_markup=reply_botton,
-                progress_args=(msg,bot,filename,start),
+                progress_args=(msg,bot,filename.split('/')[-1],start),
                 thumb='./Imagen.png',
                 caption=f"Enlace Directo:\n`{BOT_URL}/file/{message.chat.username}/{filename.split('/')[-1]}`"
             )
+            msg.delete()
         except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ El Enlace no se pudo descargar -> {e} ❌")
         return
 
@@ -316,6 +318,7 @@ def download(client,message):
                 thumb='./Imagen.png',
                 caption=f"Enlace Directo:\n`{BOT_URL}/file/{message.chat.username}/{filename.split('/')[-1]}`"
             )
+            msg.delete()
         except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ El Enlace no se pudo descargar -> {e} ❌")
         return
 
