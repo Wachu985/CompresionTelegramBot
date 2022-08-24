@@ -251,6 +251,7 @@ def download(client,message):
                     ]      
                 ]
             reply_botton = InlineKeyboardMarkup(enlace_directo)
+            start = time.time()
             bot.send_document(
                 message.chat.id,
                 f'./{message.chat.username}/{name}',
@@ -278,6 +279,7 @@ def download(client,message):
                 ]      
             ]
             reply_botton = InlineKeyboardMarkup(enlace_directo)
+            start = time.time()
             bot.send_document(
                 message.chat.id,
                 filename,
@@ -303,6 +305,7 @@ def download(client,message):
                 ]      
             ]
             reply_botton = InlineKeyboardMarkup(enlace_directo)
+            start = time.time()
             bot.send_document(
                 message.chat.id,
                 f'./{message.chat.username}/{filename}',
