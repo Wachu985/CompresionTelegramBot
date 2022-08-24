@@ -115,18 +115,19 @@ def get_link(client,message):
 def delete(client,message):
     save = './'+message.chat.username+'/'
     if os.path.exists(save):
-        val = message.command.split(' ')[-1].split('-')
-        if len(val)>1:
+        val = message.command.split(' ')[-1]
+        varios = val.split('-')
+        if len(varios)>1:
             if os.path.exists(save):
                 for v in val:
                     oslist = os.listdir(save)
-                    file = oslist[int(val)-1]
+                    file = oslist[int(v)-1]
                     os.remove(f'./{message.chat.id}/{file}')
                 message.reply('Archivos Eliminados Correctamente')
         else:
             if os.path.exists(save):
                 oslist = os.listdir(save)
-                file = oslist[int(val[0])-1]
+                file = oslist[int(val)-1]
                 os.remove(f'./{message.chat.id}/{file}')
                 message.reply('Archivo Eliminado Correctamente')
     else:
