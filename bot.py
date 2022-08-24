@@ -308,7 +308,7 @@ def download(client,message):
                 f'./{message.chat.username}/{filename}',
                 progress=progressub,
                 reply_markup=reply_botton,
-                progress_args=(msg,bot,name,start),
+                progress_args=(msg,bot,filename,start),
                 thumb='./Imagen.png',
                 caption=f"Enlace Directo:\n`{BOT_URL}/file/{message.chat.username}/{filename}`"
             )
