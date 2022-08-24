@@ -30,7 +30,7 @@ def progressddl(current, total,message,bots,filename,start,):
             text += f'{text_progres(current,total)}{current * 100 / total:.1f}%\n'
             text += f'🗓Total :{round(total/1000000,2)} MB \n'
             text += f'Descargado: {round(current/1000000,2)}\n'
-            text += f'📥Velocidad: {velo} MiB/S\n"'
+            text += f'📥Velocidad: {velo} MiB/S\n'
             bots.edit_message_text(message.chat.id,message.id,text)
         except:
             pass
@@ -46,7 +46,7 @@ def progressub(current, total,message,bots,filename,start):
             text += f'{text_progres(current,total)}{current * 100 / total:.1f}%\n'
             text += f'🗓Total :{round(total/1000000,2)} MB \n'
             text += f'📤Subido: {round(current/1000000,2)}\n'
-            text += f'📥Velocidad: {velo} MiB/S\n"'
+            text += f'📥Velocidad: {velo} MiB/S\n'
             bots.edit_message_text(message.chat.id,message.id,text)
         except:
             pass
