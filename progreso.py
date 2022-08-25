@@ -10,11 +10,11 @@ def text_progres(index,max):
 		make_text = ''
 		index_make = 1
 		make_text += '\n['
-		while(index_make<15):
+		while(index_make<21):
 			if porcent >= index_make * 5: make_text+='●'
 			else: make_text+='○'
 			index_make+=1
-		make_text += ']\n'
+		make_text += ']'
 		return make_text
 	except Exception as ex:
 			return ''
