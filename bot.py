@@ -109,6 +109,7 @@ def get_link(client,message):
         oslist = os.listdir(save)
         file = oslist[int(val)-1]
         url_direct = urllib.parse.quote(f'{BOT_URL}/file/{message.chat.username}/{file}')
+        print(url_direct)
         enlace_directo = [
             [InlineKeyboardButton(
                 'Enlace Directo',
