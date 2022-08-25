@@ -1,4 +1,5 @@
 import time
+import urllib.parse
 import os
 from asyncio import sleep
 from shutil import rmtree
@@ -107,16 +108,17 @@ def get_link(client,message):
     if os.path.exists(save):
         oslist = os.listdir(save)
         file = oslist[int(val)-1]
+        url_direct = urllib.parse.quote(f'{BOT_URL}/file/{message.chat.username}/{file}')
         enlace_directo = [
             [InlineKeyboardButton(
                 'Enlace Directo',
-                url=f'{BOT_URL}/file/{message.chat.username}/{file}'
+                url=url_direct
             ),
             ]      
         ]
         reply_botton = InlineKeyboardMarkup(enlace_directo)
 
-        message.reply(f'Enlace Directo a Internet 👇🏻:\n`{BOT_URL}/file/{message.chat.username}/{file}`',reply_markup=reply_botton)
+        message.reply(f'Enlace Directo a Internet 👇🏻:\n`{url_direct}`',reply_markup=reply_botton)
         
     else:
         bot.send_message(message.chat.id,'🚫No tienes ningun Elemento🚫')
