@@ -367,7 +367,7 @@ async def despertar(sleep_time=TIME_WAKE * 60):
     while True:
         await sleep(sleep_time)
         async with ClientSession() as session:
-            async with session.get(f'{BOT_URL}' + "Despiertate"):
+            async with session.get(f'{BOT_URL}' + "/Despiertate"):
                 pass
 
 
