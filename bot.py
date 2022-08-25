@@ -42,7 +42,19 @@ Conversation(bot)
 """============Metodo Start============="""
 @bot.on_message(filters.command('start') & filters.private)
 def Bienvenido(client,message):
-    bot.send_message(message.chat.id,'✉️Bienvenido al Bot '+message.chat.first_name)
+    enlace_directo = [
+            [InlineKeyboardButton(
+                '⚙️Soporte',
+                url=f'https://t.me/Wachu985'
+            ),
+            InlineKeyboardButton(
+                '💻GITHUB',
+                url=f'https://github.com/Wachu985/CompresionTelegramBot'
+            ),
+            ]      
+        ]
+    reply_botton = InlineKeyboardMarkup(enlace_directo)
+    bot.send_message(message.chat.id,'✉️Bienvenido al Bot '+message.chat.first_name+'\nSoy un Simple Bot de Compresion de Archivos de Telegram y Descargas de Enlaces Directos de Internet con Servicio File to Link',reply_markup=reply_botton)
 
 
 """============Descarga de Archivos de Telegram==========="""
