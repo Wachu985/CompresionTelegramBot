@@ -97,7 +97,7 @@ def list(client,message):
             cont +=1
         bot.send_message(message.chat.id,msg)
     else:
-        bot.send_message(message.chat.id,'🚫No tienes ningun Elemento🚫')
+        bot.send_message(message.chat.id,'🚫**No tienes ningun Elemento**🚫')
 
 
 """============Obtener Link de Internet============"""
@@ -134,7 +134,7 @@ def delete(client,message):
         varios = val.split('-')
         if len(varios)>1:
             if os.path.exists(save):
-                for v in val:
+                for v in varios:
                     oslist = os.listdir(save)
                     file = oslist[int(v)-1]
                     os.remove(f'./{message.chat.username}/{file}')
