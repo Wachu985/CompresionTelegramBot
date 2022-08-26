@@ -235,8 +235,8 @@ def download(client,message):
             msg.delete()
             bot.send_message(message.chat.id,f'❌**Error al Descargar la Lista❌ {e}**')
 
-    #=====================Comando de Videos de Youtube=====================#
-    elif "youtu" in message.text:
+    #=====================Comando de Videos de Youtube y De Twitch=====================#
+    elif "youtu" in message.text or 'twitch' in message.text:
         global yturls
         yturls = []
         try:
@@ -260,29 +260,63 @@ def download(client,message):
                 os.mkdir(save)
             msg = bot.send_message(message.chat.id, '⏬**Descargando Archivo. Por Favor Espere....**')
             name = wget.download(get(message.text),f'./{message.chat.username}')
+            filename = name.split("/")[-1]
             msg = bot.edit_message_text(message.chat.id,msg.id, '✅**Archivo Descargado Correctamente**')
-            url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(name)}'
-            enlace_directo = [
-                    [InlineKeyboardButton(
-                        'Enlace Directo',
-                        url=url_direct
-                    ),
-                    ]      
-                ]
-            reply_botton = InlineKeyboardMarkup(enlace_directo)
-            start = time.time()
-            bot.send_document(
-                message.chat.id,
-                f'./{message.chat.username}/{name}',
-                progress=progressub,
-                reply_markup=reply_botton,
-                progress_args=(msg,bot,name,start),
-                thumb='./Imagen.png',
-                caption=f"**Enlace Directo👇🏻:**\n\n`{url_direct}`"
-            )
-            msg.delete()
-            msg = bot.send_message(message.chat.id, '✅**Subido Correctamente**')
-        except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ El Enlace no se pudo descargar -> {e}❌")
+            #Si el Tamaño de el Archivo es menor q 1500MiB 
+            if os.path.exists(name):
+                if os.path.getsize(name) < 1572864000:
+                    url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(name.split("/")[-1])}'
+                    enlace_directo = [
+                            [InlineKeyboardButton(
+                                'Enlace Directo',
+                                url=url_direct
+                            ),
+                            ]      
+                        ]
+                    reply_botton = InlineKeyboardMarkup(enlace_directo)
+                    start = time.time()
+                    bot.send_document(
+                        message.chat.id,
+                        name,
+                        progress=progressub,
+                        reply_markup=reply_botton,
+                        progress_args=(msg,bot,name,start),
+                        thumb='./Imagen.png',
+                        caption=f"**Enlace Directo👇🏻:**\n\n`{url_direct}`"
+                    )
+                    msg.delete()
+                    msg = bot.send_message(message.chat.id, '✅**Subido Correctamente**')
+                elif os.path.getsize(file) > 1572864000:
+                    comprimio,partes = split(name,f'./{msg.chat.username}/',getBytes('1500MiB'))
+                    if comprimio:
+                        cont = 1
+                        msg = bot.send_message(msg.chat.id,'⏫**Subiendo '+subidas+' Partes**')
+                        while cont < partes:
+                            filename = filename.split(sep='.')[0]+'.zip.'+str('%03d' % (cont))
+                            start = time.time()
+                            url_direct = f'{BOT_URL}/file/{msg.chat.username}/{quote(filename)}'
+                            enlace_directo = [
+                                [InlineKeyboardButton(
+                                    'Enlace Directo',
+                                    url=url_direct
+                                ),
+                                ]      
+                            ]
+                            reply_botton = InlineKeyboardMarkup(enlace_directo)
+                            bot.send_document(
+                                msg.chat.id,
+                                f'./{msg.chat.username}/'+filename.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)),
+                                reply_markup=reply_botton,
+                                progress=progressub,
+                                progress_args=(msg,bot,filename,start),
+                                thumb='./Imagen.png',
+                                caption=f'**Enlace Directo👇🏻:**\n\n`{url_direct}`'
+                            )  
+                            os.remove(f'./{msg.chat.username}/'+filename.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)))
+                            cont += 1 
+                        msg.delete()
+                bot.send_message(msg.chat.id,'✅**Subido Correctamente**')
+        except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ **El Enlace no se pudo descargar -> {e}**❌")
         return
     #================Descargas de Google Drive===================
     elif 'drive.google.com' in message.text:
@@ -293,27 +327,61 @@ def download(client,message):
             url = message.text
             msg = bot.send_message(message.chat.id, "⏬**Descargando Archivo. Por Favor Espere...**")
             filename = gdown.download(url=url, output=f"./{message.chat.username}/")
+            file = name.split("/")[-1]
             bot.edit_message_text(message.chat.id, msg.id, f"✅**Descargado Correctamente**")
-            url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename.split("/")[-1])}'
-            enlace_directo = [
-                [InlineKeyboardButton(
-                    'Enlace Directo',
-                    url=url_direct
-                ),
-                ]      
-            ]
-            reply_botton = InlineKeyboardMarkup(enlace_directo)
-            start = time.time()
-            bot.send_document(
-                message.chat.id,
-                filename,
-                progress=progressub,
-                reply_markup=reply_botton,
-                progress_args=(msg,bot,filename.split('/')[-1],start),
-                thumb='./Imagen.png',
-                caption=f"**Enlace Directo👇🏻:**\n\n`{url_direct}`"
-            )
-            msg.delete()
+            #Si el Tamaño de el Archivo es menor q 1500MiB 
+            if os.path.exists(name):
+                if os.path.getsize(name) < 1572864000:
+                    url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename.split("/")[-1])}'
+                    enlace_directo = [
+                        [InlineKeyboardButton(
+                            'Enlace Directo',
+                            url=url_direct
+                        ),
+                        ]      
+                    ]
+                    reply_botton = InlineKeyboardMarkup(enlace_directo)
+                    start = time.time()
+                    bot.send_document(
+                        message.chat.id,
+                        filename,
+                        progress=progressub,
+                        reply_markup=reply_botton,
+                        progress_args=(msg,bot,filename.split('/')[-1],start),
+                        thumb='./Imagen.png',
+                        caption=f"**Enlace Directo👇🏻:**\n\n`{url_direct}`"
+                    )
+                    msg.delete()
+                elif os.path.getsize(file) > 1572864000:
+                    comprimio,partes = split(name,f'./{msg.chat.username}/',getBytes('1500MiB'))
+                    if comprimio:
+                        cont = 1
+                        msg = bot.send_message(msg.chat.id,'⏫**Subiendo '+subidas+' Partes**')
+                        while cont < partes:
+                            filename = file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont))
+                            start = time.time()
+                            url_direct = f'{BOT_URL}/file/{msg.chat.username}/{quote(file)}'
+                            enlace_directo = [
+                                [InlineKeyboardButton(
+                                    'Enlace Directo',
+                                    url=url_direct
+                                ),
+                                ]      
+                            ]
+                            reply_botton = InlineKeyboardMarkup(enlace_directo)
+                            bot.send_document(
+                                msg.chat.id,
+                                f'./{msg.chat.username}/'+file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)),
+                                reply_markup=reply_botton,
+                                progress=progressub,
+                                progress_args=(msg,bot,filename,start),
+                                thumb='./Imagen.png',
+                                caption=f'**Enlace Directo👇🏻:**\n\n`{url_direct}`'
+                            )  
+                            os.remove(f'./{msg.chat.username}/'+file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)))
+                            cont += 1 
+                        msg.delete()
+                bot.send_message(msg.chat.id,'✅**Subido Correctamente**')
         except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ **El Enlace no se pudo descargar -> {e} **❌")
         return
 
@@ -324,27 +392,60 @@ def download(client,message):
                 os.mkdir(save)
             msg = bot.send_message(message.chat.id,'⏬**Descargando Archivo. Por Favor Espere....**')
             filename = wget.download(message.text,f'./{message.chat.username}/')
+            file = name.split("/")[-1]
             msg = bot.edit_message_text(message.chat.id,msg.id,f'✅**Archivo Descargado Correctamente**')
-            url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename.split("/")[-1])}'
-            enlace_directo = [
-                [InlineKeyboardButton(
-                    'Enlace Directo',
-                    url=url_direct
-                ),
-                ]      
-            ]
-            reply_botton = InlineKeyboardMarkup(enlace_directo)
-            start = time.time()
-            bot.send_document(
-                message.chat.id,
-                filename,
-                progress=progressub,
-                reply_markup=reply_botton,
-                progress_args=(msg,bot,filename.split('/')[-1],start),
-                thumb='./Imagen.png',
-                caption=f"**Enlace Directo👇🏻**:\n`{url_direct}`"
-            )
-            msg.delete()
+            if os.path.exists(name):
+                if os.path.getsize(name) < 1572864000:
+                    url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename.split("/")[-1])}'
+                    enlace_directo = [
+                        [InlineKeyboardButton(
+                            'Enlace Directo',
+                            url=url_direct
+                        ),
+                        ]      
+                    ]
+                    reply_botton = InlineKeyboardMarkup(enlace_directo)
+                    start = time.time()
+                    bot.send_document(
+                        message.chat.id,
+                        filename,
+                        progress=progressub,
+                        reply_markup=reply_botton,
+                        progress_args=(msg,bot,filename.split('/')[-1],start),
+                        thumb='./Imagen.png',
+                        caption=f"**Enlace Directo👇🏻**:\n`{url_direct}`"
+                    )
+                    msg.delete()
+                elif os.path.getsize(file) > 1572864000:
+                    comprimio,partes = split(name,f'./{msg.chat.username}/',getBytes('1500MiB'))
+                    if comprimio:
+                        cont = 1
+                        msg = bot.send_message(msg.chat.id,'⏫**Subiendo '+subidas+' Partes**')
+                        while cont < partes:
+                            filename = file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont))
+                            start = time.time()
+                            url_direct = f'{BOT_URL}/file/{msg.chat.username}/{quote(file)}'
+                            enlace_directo = [
+                                [InlineKeyboardButton(
+                                    'Enlace Directo',
+                                    url=url_direct
+                                ),
+                                ]      
+                            ]
+                            reply_botton = InlineKeyboardMarkup(enlace_directo)
+                            bot.send_document(
+                                msg.chat.id,
+                                f'./{msg.chat.username}/'+file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)),
+                                reply_markup=reply_botton,
+                                progress=progressub,
+                                progress_args=(msg,bot,filename,start),
+                                thumb='./Imagen.png',
+                                caption=f'**Enlace Directo👇🏻:**\n\n`{url_direct}`'
+                            )  
+                            os.remove(f'./{msg.chat.username}/'+file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)))
+                            cont += 1 
+                        msg.delete()
+                bot.send_message(msg.chat.id,'✅**Subido Correctamente**')
         except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ **El Enlace no se pudo descargar -> {e} **❌")
         return
 
