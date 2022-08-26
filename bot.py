@@ -258,30 +258,30 @@ def download(client,message):
             save = './'+message.chat.username+'/'
             if not os.path.exists(save):
                 os.mkdir(save)
-                msg = bot.send_message(message.chat.id, '⏬**Descargando Archivo. Por Favor Espere....**')
-                name = wget.download(get(message.text),f'./{message.chat.username}')
-                msg = bot.edit_message_text(message.chat.id,msg.id, '✅**Archivo Descargado Correctamente**')
-                url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(name)}'
-                enlace_directo = [
-                        [InlineKeyboardButton(
-                            'Enlace Directo',
-                            url=url_direct
-                        ),
-                        ]      
-                    ]
-                reply_botton = InlineKeyboardMarkup(enlace_directo)
-                start = time.time()
-                bot.send_document(
-                    message.chat.id,
-                    f'./{message.chat.username}/{name}',
-                    progress=progressub,
-                    reply_markup=reply_botton,
-                    progress_args=(msg,bot,name,start),
-                    thumb='./Imagen.png',
-                    caption=f"**Enlace Directo👇🏻:**\n\n`{url_direct}`"
-                )
-                msg.delete()
-                msg = bot.send_message(message.chat.id, '✅**Subido Correctamente**')
+            msg = bot.send_message(message.chat.id, '⏬**Descargando Archivo. Por Favor Espere....**')
+            name = wget.download(get(message.text),f'./{message.chat.username}')
+            msg = bot.edit_message_text(message.chat.id,msg.id, '✅**Archivo Descargado Correctamente**')
+            url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(name)}'
+            enlace_directo = [
+                    [InlineKeyboardButton(
+                        'Enlace Directo',
+                        url=url_direct
+                    ),
+                    ]      
+                ]
+            reply_botton = InlineKeyboardMarkup(enlace_directo)
+            start = time.time()
+            bot.send_document(
+                message.chat.id,
+                f'./{message.chat.username}/{name}',
+                progress=progressub,
+                reply_markup=reply_botton,
+                progress_args=(msg,bot,name,start),
+                thumb='./Imagen.png',
+                caption=f"**Enlace Directo👇🏻:**\n\n`{url_direct}`"
+            )
+            msg.delete()
+            msg = bot.send_message(message.chat.id, '✅**Subido Correctamente**')
         except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ El Enlace no se pudo descargar -> {e}❌")
         return
     #================Descargas de Google Drive===================
@@ -290,30 +290,30 @@ def download(client,message):
             save = './'+message.chat.username+'/'
             if not os.path.exists(save):
                 os.mkdir(save)
-                url = message.text
-                msg = bot.send_message(message.chat.id, "⏬**Descargando Archivo. Por Favor Espere...**")
-                filename = gdown.download(url=url, output=f"./{message.chat.username}/")
-                bot.edit_message_text(message.chat.id, msg.id, f"✅**Descargado Correctamente**")
-                url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename.split("/")[-1])}'
-                enlace_directo = [
-                    [InlineKeyboardButton(
-                        'Enlace Directo',
-                        url=url_direct
-                    ),
-                    ]      
-                ]
-                reply_botton = InlineKeyboardMarkup(enlace_directo)
-                start = time.time()
-                bot.send_document(
-                    message.chat.id,
-                    filename,
-                    progress=progressub,
-                    reply_markup=reply_botton,
-                    progress_args=(msg,bot,filename.split('/')[-1],start),
-                    thumb='./Imagen.png',
-                    caption=f"**Enlace Directo👇🏻:**\n\n`{url_direct}`"
-                )
-                msg.delete()
+            url = message.text
+            msg = bot.send_message(message.chat.id, "⏬**Descargando Archivo. Por Favor Espere...**")
+            filename = gdown.download(url=url, output=f"./{message.chat.username}/")
+            bot.edit_message_text(message.chat.id, msg.id, f"✅**Descargado Correctamente**")
+            url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename.split("/")[-1])}'
+            enlace_directo = [
+                [InlineKeyboardButton(
+                    'Enlace Directo',
+                    url=url_direct
+                ),
+                ]      
+            ]
+            reply_botton = InlineKeyboardMarkup(enlace_directo)
+            start = time.time()
+            bot.send_document(
+                message.chat.id,
+                filename,
+                progress=progressub,
+                reply_markup=reply_botton,
+                progress_args=(msg,bot,filename.split('/')[-1],start),
+                thumb='./Imagen.png',
+                caption=f"**Enlace Directo👇🏻:**\n\n`{url_direct}`"
+            )
+            msg.delete()
         except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ **El Enlace no se pudo descargar -> {e} **❌")
         return
 
@@ -322,29 +322,29 @@ def download(client,message):
             save = './'+message.chat.username+'/'
             if not os.path.exists(save):
                 os.mkdir(save)
-                msg = bot.send_message(message.chat.id,'⏬**Descargando Archivo. Por Favor Espere....**')
-                filename = wget.download(message.text,f'./{message.chat.username}/')
-                msg = bot.edit_message_text(message.chat.id,msg.id,f'✅**Archivo Descargado Correctamente**')
-                url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename.split("/")[-1])}'
-                enlace_directo = [
-                    [InlineKeyboardButton(
-                        'Enlace Directo',
-                        url=url_direct
-                    ),
-                    ]      
-                ]
-                reply_botton = InlineKeyboardMarkup(enlace_directo)
-                start = time.time()
-                bot.send_document(
-                    message.chat.id,
-                    filename,
-                    progress=progressub,
-                    reply_markup=reply_botton,
-                    progress_args=(msg,bot,filename.split('/')[-1],start),
-                    thumb='./Imagen.png',
-                    caption=f"**Enlace Directo👇🏻**:\n`{url_direct}`"
-                )
-                msg.delete()
+            msg = bot.send_message(message.chat.id,'⏬**Descargando Archivo. Por Favor Espere....**')
+            filename = wget.download(message.text,f'./{message.chat.username}/')
+            msg = bot.edit_message_text(message.chat.id,msg.id,f'✅**Archivo Descargado Correctamente**')
+            url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename.split("/")[-1])}'
+            enlace_directo = [
+                [InlineKeyboardButton(
+                    'Enlace Directo',
+                    url=url_direct
+                ),
+                ]      
+            ]
+            reply_botton = InlineKeyboardMarkup(enlace_directo)
+            start = time.time()
+            bot.send_document(
+                message.chat.id,
+                filename,
+                progress=progressub,
+                reply_markup=reply_botton,
+                progress_args=(msg,bot,filename.split('/')[-1],start),
+                thumb='./Imagen.png',
+                caption=f"**Enlace Directo👇🏻**:\n`{url_direct}`"
+            )
+            msg.delete()
         except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ **El Enlace no se pudo descargar -> {e} **❌")
         return
 
