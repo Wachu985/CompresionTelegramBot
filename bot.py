@@ -318,6 +318,7 @@ def download(client,message):
                 bot.send_message(msg.chat.id,'✅**Subido Correctamente**')
         except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ **El Enlace no se pudo descargar -> {e}**❌")
         return
+
     #================Descargas de Google Drive===================
     elif 'drive.google.com' in message.text:
         try:
@@ -478,6 +479,7 @@ server = web.Application()
 server.router.add_get('/file/{route}/{file_name}', download_file)
 runner = web.AppRunner(server)
 
+"""===================Metodo Para Mantener Despierto el Bot========================="""
 async def despertar(sleep_time=TIME_WAKE * 60):
     while True:
         await sleep(sleep_time)

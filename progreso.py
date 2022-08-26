@@ -1,5 +1,6 @@
 import time
 
+"""==========Barra de Progreso============"""
 def text_progres(index,max):
 	try:
 		if max<1:
@@ -20,6 +21,7 @@ def text_progres(index,max):
 			return ''
 
 
+"""============Progreso de Descarga==========="""
 def progressddl(current, total,message,bots,filename,start,):
     porcent = int(current * 100 / total)
     act = time.time() - start
@@ -32,10 +34,10 @@ def progressddl(current, total,message,bots,filename,start,):
             text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
             text += f'📥**Velocidad**: {velo} MiB/S\n'
             bots.edit_message_text(message.chat.id,message.id,text)
-        except:
-            pass
+        except:pass 
 
 
+"""============Progreso de Subida==============="""
 def progressub(current, total,message,bots,filename,start):
     porcent = int(current * 100 / total)
     act = time.time() - start
@@ -48,5 +50,4 @@ def progressub(current, total,message,bots,filename,start):
             text += f'📤**Subido**: {round(current/1000000,2)}MiB\n'
             text += f'📥**Velocidad**: {velo} MiB/S\n'
             bots.edit_message_text(message.chat.id,message.id,text)
-        except:
-            pass
+        except:pass
