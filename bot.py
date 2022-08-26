@@ -134,8 +134,8 @@ def delete(client,message):
         varios = val.split('-')
         if len(varios)>1:
             if os.path.exists(save):
+                oslist = os.listdir(save)
                 for v in varios:
-                    oslist = os.listdir(save)
                     file = oslist[int(v)-1]
                     os.remove(f'./{message.chat.username}/{file}')
                 message.reply('💢**Archivos Eliminados Correctamente**💢')
