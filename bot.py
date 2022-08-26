@@ -91,9 +91,9 @@ def list(client,message):
     if os.path.exists(save):
         oslist = os.listdir(save)
         cont = 1
-        msg ='🔡Archivos: \n'
+        msg ='🔡**Archivos**: \n'
         for f in oslist:
-            msg += str(cont)+'-'+f'`{str(f)}`'+'\n'
+            msg += '**'+str(cont)+'**'+'-'+f'`{str(f)}`'+'\n\n'
             cont +=1
         bot.send_message(message.chat.id,msg)
     else:
@@ -119,10 +119,10 @@ def get_link(client,message):
         ]
         reply_botton = InlineKeyboardMarkup(enlace_directo)
 
-        message.reply(f'Enlace Directo a Internet 👇🏻:\n`{url_direct}`',reply_markup=reply_botton)
+        message.reply(f'**Enlace Directo a Internet 👇🏻:**\n\n`{url_direct}`',reply_markup=reply_botton)
         
     else:
-        bot.send_message(message.chat.id,'🚫No tienes ningun Elemento🚫')
+        bot.send_message(message.chat.id,'🚫**No tienes ningun Elemento**🚫')
 
     
 """=============Eliminar Elementos============="""
@@ -138,17 +138,17 @@ def delete(client,message):
                     oslist = os.listdir(save)
                     file = oslist[int(v)-1]
                     os.remove(f'./{message.chat.username}/{file}')
-                message.reply('Archivos Eliminados Correctamente')
+                message.reply('💢**Archivos Eliminados Correctamente**💢')
         else:
             if os.path.exists(save):
                 oslist = os.listdir(save)
                 file = oslist[int(val)-1]
                 os.remove(f'./{message.chat.username}/{file}')
-                message.reply('Archivo Eliminado Correctamente')
+                message.reply('💢**Archivo Eliminado Correctamente**💢')
     else:
         bot.send_message(
             message.chat.id,
-            '🚫No se Pudo Eliminar el Elemento Correctamente Por que no Existe🚫'
+            '🚫**No se Pudo Eliminar el Elemento Correctamente Por que no Existe**🚫'
         )
 
 
@@ -160,12 +160,12 @@ def delete(client,message):
         rmtree(save)
         bot.send_message(
             message.chat.id,
-            '💢Eliminado el Directorio Correctamente💢'
+            '💢**Eliminado el Directorio Correctamente**💢'
         )
     else:
         bot.send_message(
             message.chat.id,
-            '🚫No se Pudo Eliminar el Directorio Correctamente Por que no Existe🚫'
+            '🚫**No se Pudo Eliminar el Directorio Correctamente Por que no Existe**🚫'
         )
 
 
@@ -197,11 +197,11 @@ def download(client,message):
         zips = '2000MiB'
         username = message.chat.username
         try:
-            msg = bot.send_message(message.chat.id,'⏫Descargando Videos... Por Favor Espere')
+            msg = bot.send_message(message.chat.id,'⏫**Descargando Videos... Por Favor Espere**')
             save,title = downloadlist(playlist,res.text,username)
             file = title+'.zip'
             msg.delete()
-            msg = bot.send_message(message.chat.id,'📚Comprimiendo Archivos')
+            msg = bot.send_message(message.chat.id,'📚**Comprimiendo Archivos**')
             comprimio,partes = split(compresion(file,save),f'./{message.chat.username}/',getBytes(zips))
             subidas = str(partes -1)
             msg.delete()
@@ -230,10 +230,10 @@ def download(client,message):
                     )
                     cont += 1 
                 up.delete()
-                bot.send_message(message.chat.id,'✅Subido Correctamente')
+                bot.send_message(message.chat.id,'✅**Subido Correctamente**')
         except Exception as e:
             msg.delete()
-            bot.send_message(message.chat.id,f'❌Error al Descargar la Lista❌ {e}')
+            bot.send_message(message.chat.id,f'❌**Error al Descargar la Lista❌ {e}**')
 
     #=====================Comando de Videos de Youtube=====================#
     elif "youtu" in message.text:
@@ -250,14 +250,14 @@ def download(client,message):
             text = 'Seleccione la Resolucion:👇'
             msg= bot.send_message(chat_id=message.chat.id,text=text,reply_markup=keyboard_group,reply_to_message_id=message.id) 
         except Exception as e:
-            bot.send_message(message.chat.id,f'❌Error al Analizar el Video❌-> {e}')
+            bot.send_message(message.chat.id,f'❌**Error al Analizar el Video❌-> {e}**')
 
     #================Descargas de Mediafire===================
     elif "mediafire" in message.text:
         try:
-            msg = bot.send_message(message.chat.id, 'Descargando Archivo')
+            msg = bot.send_message(message.chat.id, '⏬**Descargando Archivo. Por Favor Espere....**')
             name = wget.download(get(message.text),f'./{message.chat.username}')
-            msg = bot.edit_message_text(message.chat.id,msg.id, 'Archivo Descargado Correctamente')
+            msg = bot.edit_message_text(message.chat.id,msg.id, '✅**Archivo Descargado Correctamente**')
             enlace_directo = [
                     [InlineKeyboardButton(
                         'Enlace Directo',
@@ -274,19 +274,19 @@ def download(client,message):
                 reply_markup=reply_botton,
                 progress_args=(msg,bot,name,start),
                 thumb='./Imagen.png',
-                caption=f"Enlace Directo:\n`{BOT_URL}/file/{message.chat.username}/{name}`"
+                caption=f"**Enlace Directo👇🏻:**\n\n`{BOT_URL}/file/{message.chat.username}/{name}`"
             )
             msg.delete()
-            msg = bot.send_message(message.chat.id, 'Subido Correctamente')
+            msg = bot.send_message(message.chat.id, '✅**Subido Correctamente**')
         except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ El Enlace no se pudo descargar -> {e}❌")
         return
     #================Descargas de Google Drive===================
     elif 'drive.google.com' in message.text:
         try:
             url = message.text
-            msg = bot.send_message(message.chat.id, "Descargando Archivo")
+            msg = bot.send_message(message.chat.id, "⏬**Descargando Archivo. Por Favor Espere...**")
             filename = gdown.download(url=url, output=f"./{message.chat.username}/")
-            bot.edit_message_text(message.chat.id, msg.id, f"Descargado Correctamente")
+            bot.edit_message_text(message.chat.id, msg.id, f"✅**Descargado Correctamente**")
             enlace_directo = [
                 [InlineKeyboardButton(
                     'Enlace Directo',
@@ -303,17 +303,17 @@ def download(client,message):
                 reply_markup=reply_botton,
                 progress_args=(msg,bot,filename.split('/')[-1],start),
                 thumb='./Imagen.png',
-                caption=f"Enlace Directo:\n`{BOT_URL}/file/{message.chat.username}/{filename.split('/')[-1]}`"
+                caption=f"**Enlace Directo👇🏻:**\n\n`{BOT_URL}/file/{message.chat.username}/{filename.split('/')[-1]}`"
             )
             msg.delete()
-        except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ El Enlace no se pudo descargar -> {e} ❌")
+        except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ **El Enlace no se pudo descargar -> {e} **❌")
         return
 
     elif 'http' in message.text:
         try:
-            msg = bot.send_message(message.chat.id,'Descargando Archivo. Por Favor Espere....')
+            msg = bot.send_message(message.chat.id,'⏬**Descargando Archivo. Por Favor Espere....**')
             filename = wget.download(message.text,f'./{message.chat.username}/')
-            msg = bot.edit_message_text(message.chat.id,msg.id,f'Archivo Descargado Correctamente')
+            msg = bot.edit_message_text(message.chat.id,msg.id,f'✅**Archivo Descargado Correctamente**')
             enlace_directo = [
                 [InlineKeyboardButton(
                     'Enlace Directo',
@@ -323,7 +323,6 @@ def download(client,message):
             ]
             reply_botton = InlineKeyboardMarkup(enlace_directo)
             start = time.time()
-            print(filename)
             bot.send_document(
                 message.chat.id,
                 filename,
@@ -334,7 +333,7 @@ def download(client,message):
                 caption=f"Enlace Directo:\n`{BOT_URL}/file/{message.chat.username}/{filename.split('/')[-1]}`"
             )
             msg.delete()
-        except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ El Enlace no se pudo descargar -> {e} ❌")
+        except Exception as e: bot.edit_message_text(message.chat.id, msg.id, f"❌ **El Enlace no se pudo descargar -> {e} **❌")
         return
 
 
