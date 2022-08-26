@@ -55,7 +55,7 @@ def Bienvenido(client,message):
             ]      
         ]
     reply_botton = InlineKeyboardMarkup(enlace_directo)
-    bot.send_message(message.chat.id,'✉️Bienvenido al Bot '+message.chat.first_name+'\nSoy un Simple Bot de Compresion de Archivos de Telegram y Descargas de Enlaces Directos de Internet con Servicio File to Link',reply_markup=reply_botton)
+    bot.send_message(message.chat.id,'✉️**Bienvenido al Bot '+message.chat.first_name+'**'+'\n\n__📱Soy un Simple Bot de Compresion de Archivos de Telegram y Descargas de Enlaces Directos de Internet con Servicio File to Link📱__',reply_markup=reply_botton)
 
 
 """============Descarga de Archivos de Telegram==========="""
@@ -66,7 +66,7 @@ def media_telegram(client,message):
         filename = get_filename_media(message)
         msg = bot.send_message(
             message.chat.id,
-            "📡Descargando Archivos... Por Favor Espere",
+            "📡**Descargando Archivos... Por Favor Espere**",
             reply_to_message_id=message.id
         )
         start = time.time() 
@@ -91,7 +91,7 @@ def list(client,message):
     if os.path.exists(save):
         oslist = os.listdir(save)
         cont = 1
-        msg ='🔡**Archivos**: \n'
+        msg ='🔡**DIRECTORIO**: \n\n'
         for f in oslist:
             msg += '**'+str(cont)+'**'+'-'+f'`{str(f)}`'+'\n\n'
             cont +=1
@@ -188,11 +188,11 @@ def download(client,message):
     #==================Descagando Lista de Reproduccion======================
     if "playlist" in message.text:
         playlist = message.text
-        msg = bot.send_message(message.chat.id,'🖌Escriba la Resolucion de los Videos:👇 Tiene 8 seg...')
+        msg = bot.send_message(message.chat.id,'🖌**Escriba la Resolucion de los Videos**:👇 __Tiene 8 seg...__')
         try:
             res = asyncio.run(client.listen.Message(filters.chat(msg.chat.id), timeout = 8))
         except asyncio.TimeoutError:
-            msg.edit_text('🚫Tiempo de Espera Exedido🚫')
+            msg.edit_text('🚫**Tiempo de Espera Exedido**🚫')
             return
         zips = '2000MiB'
         username = message.chat.username
@@ -207,7 +207,7 @@ def download(client,message):
             msg.delete()
             if comprimio:
                 cont = 1
-                up = bot.send_message(message.chat.id,'⏫Subiendo '+subidas+' Partes...')
+                up = bot.send_message(message.chat.id,'⏫**Subiendo '+subidas+' Partes...**')
                 while cont < partes:
                     filename = file+'.'+str('%03d' % (cont))
                     start = time.time()
@@ -247,7 +247,7 @@ def download(client,message):
             for each in yturls:
                 button_list.append(InlineKeyboardButton(each[1], callback_data = each[0]))
             keyboard_group=InlineKeyboardMarkup(build_menu(button_list, n_cols=3))
-            text = 'Seleccione la Resolucion:👇'
+            text = '**Seleccione la Resolucion:👇**'
             msg= bot.send_message(chat_id=message.chat.id,text=text,reply_markup=keyboard_group,reply_to_message_id=message.id) 
         except Exception as e:
             bot.send_message(message.chat.id,f'❌**Error al Analizar el Video❌-> {e}**')
