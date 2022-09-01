@@ -14,9 +14,10 @@ import yt_dlp
 
 
 class YoutubeDL():
-    def __init__(self,downlad_progres=None,msg=None,bot=None):
+    def __init__(self,downlad_progres=None,msg=None,bot=None,isPlayList = False):
         self.downlad_progres = downlad_progres
         self.msg = msg
+        self._isPlayList = isPlayList
         self.bot = bot
 
     """============Conversion de Nombres============="""
@@ -48,7 +49,10 @@ class YoutubeDL():
             if d['speed'] is not None:
                 speed = d['speed']
             tiempo = d['_eta_str']
-            self.downlad_progres(int(current), int(total),speed,filename,tiempo,self.msg,self.bot)
+            if not self._isPlayList:
+                self.downlad_progres(int(current), int(total),speed,filename,tiempo,self.msg,self.bot)
+            if self._isPlayList:
+                self.downlad_progres(int(current),speed,filename,tiempo,self.msg,self.bot)
         if d['status'] == 'finished':
             print('Done downloading, now converting ...')
 
