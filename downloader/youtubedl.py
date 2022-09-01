@@ -48,7 +48,7 @@ class YoutubeDL():
             if d['speed'] is not None:
                 speed = d['speed']
             tiempo = d['_eta_str']
-            self.downlad_progres(int(current), int(total),speed,pingo,tiempo,self.msg,self.bot)
+            self.downlad_progres(int(current), int(total),speed,filename,tiempo,self.msg,self.bot)
         if d['status'] == 'finished':
             print('Done downloading, now converting ...')
 
