@@ -37,6 +37,7 @@ class YoutubeDL():
         value = re.sub(r'[^\w\s-]', '', value.lower())
         return re.sub(r'[-\s]+', '-', value).strip('-_')
 
+    """==================Progreso de Descarga de Videos==================="""
     def my_hook(self,d):
         if d['status'] == 'downloading':
             filename = d['filename']
@@ -46,17 +47,9 @@ class YoutubeDL():
             if d['speed'] is not None:
                 speed = d['speed']
             tiempo = d['_eta_str']
-            print(d)
             self.downlad_progres(int(current), int(total),speed,filename,tiempo,self.msg,self.bot)
         if d['status'] == 'finished':
             print('Done downloading, now converting ...')
-
-    def my_hook2(self,d):
-            filename = d['filename']
-            current = d['downloaded_bytes']
-            total = d['total_bytes']
-            speed = d['speed']
-            self.downlad_progres(int(current), int(total),filename,self.msg,self.bot)
 
     """==================Informacion de el Video==================="""
     def info(self,url):
