@@ -69,9 +69,10 @@ def progressytdl(current, total,speed,filename,tiempo,message,bots):
 
 """============Progreso de Descarga de Youtube==============="""
 def progressytdllist(current,filename,message,bots):
+    print('Adentro')
     filename =filename.split('/')[-1]
     try:
-        text = f"⏬**Descargando de Youtube**\n\n💾**Nombre**: {filename} \n"
+        text = f"⏬**Descargando Lista de Youtube**\n\n💾**Nombre**: {filename} \n"
         text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
         bots.edit_message_text(message.chat.id,message.id,text)
     except:pass 
