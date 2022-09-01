@@ -14,10 +14,10 @@ import yt_dlp
 
 
 class YoutubeDL():
-    def __init__(self,downlad_progres=None,msg=None,bot=None,isPlayList = False):
+    def __init__(self,downlad_progres=None,msg=None,bot=None,isTwitch = False):
         self.downlad_progres = downlad_progres
         self.msg = msg
-        self._isPlayList = isPlayList
+        self._isTwitch = isTwitch
         self.bot = bot
 
     """============Conversion de Nombres============="""
@@ -42,20 +42,14 @@ class YoutubeDL():
     """==================Progreso de Descarga de Videos==================="""
     def my_hook(self,d):
         if d['status'] == 'downloading':
-            if self._isPlayList:
-                filename = d['filename']
-                current = d['downloaded_bytes']
-                total = d['total_bytes']
-                speed = 0
-                if d['speed'] is not None:
-                    speed = d['speed']
-                tiempo = d['_eta_str']
-                self.downlad_progres(int(current), int(total),speed,filename,tiempo,self.msg,self.bot)
-            elif not self._isPlayList:
-                print('Voy a Entrar')
-                filename = d['filename']
-                current = d['downloaded_bytes']
-                self.downlad_progres(int(current),filename,self.msg,self.bot)
+            filename = d['filename']
+            current = d['downloaded_bytes']
+            total = d['total_bytes']
+            speed = 0
+            if d['speed'] is not None:
+                speed = d['speed']
+            tiempo = d['_eta_str']
+            self.downlad_progres(int(current), int(total),speed,filename,tiempo,self.msg,self.bot)
         if d['status'] == 'finished':
             print('Done downloading, now converting ...')
 
