@@ -10,7 +10,7 @@ from pyrogram import filters
 #
 from zip import split,compresion,getBytes
 from progreso import progressub
-from downloader.youtubedl import info,download
+from downloader.youtubedl import YoutubeDL
 from cfg import *
 
 """============Botones de Compresion==============="""
@@ -169,8 +169,8 @@ def download_of_youtube(CallbackQuery,each,bot):
     msg.delete()
     msg = bot.send_message(msg.chat.id,'⏬**Descargando... Por favor Espere...**')
     try:
-        print(format)
-        file,duration = download(url,username,format)
+        ytdl= YoutubeDL()
+        file,duration = ytdl.download(url,username,format)
         msg.delete()
         msg = bot.send_message(msg.chat.id,'✅**Descargado Correctamente..**')
         msg.delete()

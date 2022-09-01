@@ -5,14 +5,6 @@ import re
 import yt_dlp
 
 
-"""==================Modificacion de Texto======================="""
-import unicodedata
-import random
-import re
-# Apps de Terceros
-import yt_dlp
-
-
 class YoutubeDL():
     def __init__(self,downlad_progres=None):
         self.downlad_progres = downlad_progres
@@ -113,8 +105,7 @@ class YoutubeDL():
             'format': format,
             'outtmpl': file,
             'restrict_filenames':True,
-            'windowsfilenames':False,
-            'progress_hooks': [self.my_hook],
+            'windowsfilenames':False
         }
 
         with yt_dlp.YoutubeDL(opcions) as ydl:
@@ -133,9 +124,7 @@ class YoutubeDL():
             'format': f'b[height<={res}]',
             'outtmpl': file,
             'restrict_filenames':False,
-            'windowsfilenames':False,
-            'progress_hooks': [self.my_hook],
-        }
+            'windowsfilenames':False}
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([urls])
             dir = './'+username+'/'+playlist+'/'
@@ -144,5 +133,3 @@ class YoutubeDL():
         
 
 
-
-    

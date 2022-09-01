@@ -19,7 +19,7 @@ import gdown
 from cfg import *
 from utils import *
 from progreso import progressub,progressddl
-from downloader.youtubedl import info,download,downloadlist
+from downloader.youtubedl import YoutubeDL
 from server import download_file
 from downloader.mediafire import get
 
@@ -196,9 +196,10 @@ def download(client,message):
             return
         zips = '2000MiB'
         username = message.chat.username
+        ytdl = YoutubeDL()
         try:
             msg = bot.send_message(message.chat.id,'⏫**Descargando Videos... Por Favor Espere**')
-            save,title = downloadlist(playlist,res.text,username)
+            save,title = ytdl.downloadlist(playlist,res.text,username)
             file = title+'.zip'
             msg.delete()
             msg = bot.send_message(message.chat.id,'📚**Comprimiendo Archivos**')
@@ -239,8 +240,9 @@ def download(client,message):
     elif "youtu" in message.text or 'twitch' in message.text:
         global yturls
         yturls = []
+        ytdl = YoutubeDL()
         try:
-            yt = info(message.text)
+            yt = ytdl.info(message.text)
             for f in yt:
                 yturls.append(f.split(sep=':'))
             button_list = []
@@ -328,11 +330,11 @@ def download(client,message):
             url = message.text
             msg = bot.send_message(message.chat.id, "⏬**Descargando Archivo. Por Favor Espere...**")
             filename = gdown.download(url=url, output=f"./{message.chat.username}/")
-            file = name.split("/")[-1]
+            file = filename.split("/")[-1]
             bot.edit_message_text(message.chat.id, msg.id, f"✅**Descargado Correctamente**")
             #Si el Tamaño de el Archivo es menor q 1500MiB 
-            if os.path.exists(name):
-                if os.path.getsize(name) < 1572864000:
+            if os.path.exists(file):
+                if os.path.getsize(file) < 1572864000:
                     url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename.split("/")[-1])}'
                     enlace_directo = [
                         [InlineKeyboardButton(
@@ -354,7 +356,7 @@ def download(client,message):
                     )
                     msg.delete()
                 elif os.path.getsize(file) > 1572864000:
-                    comprimio,partes = split(name,f'./{msg.chat.username}/',getBytes('1500MiB'))
+                    comprimio,partes = split(file,f'./{msg.chat.username}/',getBytes('1500MiB'))
                     if comprimio:
                         cont = 1
                         msg = bot.send_message(msg.chat.id,'⏫**Subiendo '+subidas+' Partes**')
