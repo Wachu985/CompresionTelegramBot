@@ -19,6 +19,7 @@ class YoutubeDL():
         self.msg = msg
         self.bot = bot
 
+    """============Conversion de Nombres============="""
     def slugify(self,value, allow_unicode=False):
         """
         Taken from https://github.com/django/django/blob/master/django/utils/text.py
@@ -139,7 +140,7 @@ class YoutubeDL():
             'outtmpl': file,
             'restrict_filenames':False,
             'windowsfilenames':False,
-            'progress_hooks': [self.my_hook2]
+            'progress_hooks': [self.my_hook]
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([urls])
