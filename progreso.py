@@ -53,16 +53,15 @@ def progressub(current, total,message,bots,filename,start):
         except:pass
 
 """============Progreso de Descarga de Youtube==============="""
-def progressytdl(current, total,message,bots):
+def progressytdl(current, total,filename,message,bots):
     print('entre')
     print(message)
     porcent = int(current * 100 / total)
     if porcent % 8 == 0:
         try:
-            text = f"⏬**Descargando**\n\n💾**Nombre**: \n"
+            text = f"⏬**Descargando**\n\n💾**Nombre**: {filename} \n"
             text += f'{text_progres(current,total)} {current * 100 / total:.1f}%\n\n'
             text += f'🗓**Total**:{round(total/1000000,2)} MiB \n'
             text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
-            text += f'📥**Velocidad**:MiB/S\n'
             bots.edit_message_text(message.chat.id,message.id,text)
         except:pass 
