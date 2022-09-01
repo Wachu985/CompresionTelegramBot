@@ -14,8 +14,10 @@ import yt_dlp
 
 
 class YoutubeDL():
-    def __init__(self,downlad_progres=None):
+    def __init__(self,downlad_progres=None,msg='',bot=None):
         self.downlad_progres = downlad_progres
+        self.msg = msg
+        self.bot = bot
 
     def slugify(self,value, allow_unicode=False):
         """
@@ -37,11 +39,11 @@ class YoutubeDL():
 
     def my_hook(self,d):
         if d['status'] == 'downloading':
-            filemane = d['filename']
+            filename = d['filename']
             current = d['downloaded_bytes']
             total = d['total_bytes']
             speed = d['speed']
-            print(f'Descargando {current * 100 / total:.1f} --- {speed}')
+            self.downlad_progres(current, total,filename,speed,self.msg,self.bot)
         if d['status'] == 'finished':
             print('Done downloading, now converting ...')
 

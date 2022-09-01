@@ -51,3 +51,16 @@ def progressub(current, total,message,bots,filename,start):
             text += f'📥**Velocidad**: {velo} MiB/S\n'
             bots.edit_message_text(message.chat.id,message.id,text)
         except:pass
+
+
+def progressytdl(current, total,filename,speed,message,bots):
+    porcent = int(current * 100 / total)
+    if porcent % 8 == 0:
+        try:
+            text = f"⏬**Descargando**\n\n💾**Nombre**: {filename} \n"
+            text += f'{text_progres(current,total)} {current * 100 / total:.1f}%\n\n'
+            text += f'🗓**Total**:{round(total/1000000,2)} MiB \n'
+            text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
+            text += f'📥**Velocidad**: {speed} MiB/S\n'
+            bots.edit_message_text(message.chat.id,message.id,text)
+        except:pass 
