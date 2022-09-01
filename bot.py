@@ -18,7 +18,7 @@ import gdown
 #
 from cfg import *
 from utils import *
-from progreso import progressub,progressddl
+from progreso import progressub,progressddl,progressytdl
 from downloader.youtubedl import YoutubeDL
 from server import download_file
 from downloader.mediafire import get
@@ -196,9 +196,9 @@ def download(client,message):
             return
         zips = '2000MiB'
         username = message.chat.username
-        ytdl = YoutubeDL()
         try:
             msg = bot.send_message(message.chat.id,'⏫**Descargando Videos... Por Favor Espere**')
+            ytdl = YoutubeDL(progressytdl,message,bot)
             save,title = ytdl.downloadlist(playlist,res.text,username)
             file = title+'.zip'
             msg.delete()

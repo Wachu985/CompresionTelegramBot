@@ -55,7 +55,8 @@ def progressub(current, total,message,bots,filename,start):
 """============Progreso de Descarga de Youtube==============="""
 def progressytdl(current, total,filename,message,bots):
     porcent = int(current * 100 / total)
-    if porcent % 8 == 0:
+    filename =filename.split('/')[-1]
+    if porcent % 5 == 0:
         try:
             text = f"⏬**Descargando de Youtube**\n\n💾**Nombre**: {filename} \n"
             text += f'{text_progres(current,total)} {current * 100 / total:.1f}%\n\n'
