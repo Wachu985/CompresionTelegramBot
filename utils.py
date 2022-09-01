@@ -223,7 +223,7 @@ def download_of_youtube(CallbackQuery,each,bot):
                 tama = int(os.path.getsize(file)/1048576)
                 tpart = 1500
                 part = math.ceil(tama/tpart) 
-                text = f'📚**Comprimiendo Archivos**\n📝**Nombre:** {file}\n'
+                text = f'📚**Comprimiendo Archivos**\n📝**Nombre:** {sub}\n'
                 text += f'🗂**Tamaño Total**: {tama} MiB\n📂**Tamaño de Partes**: {tpart}MiB\n'
                 text += f'💾**Cantidad de Partes**: {part}' 
                 msg = bot.send_message(

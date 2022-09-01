@@ -39,7 +39,7 @@ class YoutubeDL():
         return re.sub(r'[-\s]+', '-', value).strip('-_')
 
     """==================Progreso de Descarga de Videos==================="""
-    def my_hook(self,d):
+    def my_hook(self,d,pingo):
         if d['status'] == 'downloading':
             filename = d['filename']
             current = d['downloaded_bytes']
@@ -48,7 +48,7 @@ class YoutubeDL():
             if d['speed'] is not None:
                 speed = d['speed']
             tiempo = d['_eta_str']
-            self.downlad_progres(int(current), int(total),speed,filename,tiempo,self.msg,self.bot)
+            self.downlad_progres(int(current), int(total),speed,pingo,tiempo,self.msg,self.bot)
         if d['status'] == 'finished':
             print('Done downloading, now converting ...')
 
@@ -115,12 +115,13 @@ class YoutubeDL():
         title = self.getTitle(url)
         file = './'+username+'/'+title+'.%(ext)s'
         format = format.split(sep=('('))[-1].replace(')','')
+        pingo = 'loco'
         opcions = {
             'format': format,
             'outtmpl': file,
             'restrict_filenames':True,
             'windowsfilenames':False,
-            'progress_hooks': [self.my_hook],
+            'progress_hooks': [lambda d: self.my_hook(d,pingo)],
         }
 
         with yt_dlp.YoutubeDL(opcions) as ydl:
