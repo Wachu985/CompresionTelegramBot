@@ -74,4 +74,4 @@ def progressytdllist(current,filename,message,bots):
         text = f"⏬**Descargando Lista de Youtube**\n\n💾**Nombre**: {filename} \n"
         text += f'📥**Descargado**: {round(float(current)/1000000,2)}MiB\n'
         bots.edit_message_text(message.chat.id,message.id,text)
-    except Exception as e:print(e) 
+    except:pass

@@ -198,7 +198,7 @@ def download(client,message):
         username = message.chat.username
         try:
             msg = bot.send_message(message.chat.id,'⏫**Recopilando Información... Por Favor Espere**')
-            ytdl = YoutubeDL(progressytdllist,message,bot,True)
+            ytdl = YoutubeDL(progressytdllist,msg,bot,True)
             save,title = ytdl.downloadlist(playlist,res.text,username)
             file = title+'.zip'
             msg.delete()

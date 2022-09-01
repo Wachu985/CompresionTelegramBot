@@ -42,7 +42,7 @@ class YoutubeDL():
     """==================Progreso de Descarga de Videos==================="""
     def my_hook(self,d):
         if d['status'] == 'downloading':
-            if not self._isPlayList:
+            if self._isPlayList:
                 filename = d['filename']
                 current = d['downloaded_bytes']
                 total = d['total_bytes']
@@ -51,7 +51,7 @@ class YoutubeDL():
                     speed = d['speed']
                 tiempo = d['_eta_str']
                 self.downlad_progres(int(current), int(total),speed,filename,tiempo,self.msg,self.bot)
-            if self._isPlayList:
+            elif not self._isPlayList:
                 print('Voy a Entrar')
                 filename = d['filename']
                 current = d['downloaded_bytes']
