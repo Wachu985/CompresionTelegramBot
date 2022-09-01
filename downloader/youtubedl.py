@@ -52,6 +52,7 @@ class YoutubeDL():
                 tiempo = d['_eta_str']
                 self.downlad_progres(int(current), int(total),speed,filename,tiempo,self.msg,self.bot)
             if self._isPlayList:
+                print('Voy a Entrar')
                 filename = d['filename']
                 current = d['downloaded_bytes']
                 self.downlad_progres(int(current),filename,self.msg,self.bot)
