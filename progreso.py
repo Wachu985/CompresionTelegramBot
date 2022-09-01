@@ -63,6 +63,6 @@ def progressytdl(current, total,speed,filename,tiempo,message,bots):
             text += f'🗓**Total**:{round(total/1000000,2)} MiB \n'
             text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
             text += f'📥**Velocidad**: {speed} MiB/S\n'
-            text += f'📥**Tiempo**: {tiempo}s\n'
+            text += f'📥**Tiempo**: {round(float(tiempo)/1000000,2)}s\n'
             bots.edit_message_text(message.chat.id,message.id,text)
         except:pass 
