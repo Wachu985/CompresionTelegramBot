@@ -18,7 +18,7 @@ import gdown
 #
 from cfg import *
 from utils import *
-from progreso import progressub,progressddl,progressytdl,progressytdllist
+from progreso import progressub,progressddl,progressytdl
 from downloader.youtubedl import YoutubeDL
 from server import download_file
 from downloader.mediafire import get
