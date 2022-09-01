@@ -8,7 +8,7 @@ from pyrogram.types import InlineKeyboardButton,InlineKeyboardMarkup
 from pyrogram import filters
 
 #
-from zip import split,compresion,getBytes
+from zip import split,compresion,getBytes,compressionone
 from progreso import progressub,progressytdl
 from downloader.youtubedl import YoutubeDL
 from cfg import *
@@ -230,10 +230,11 @@ def download_of_youtube(CallbackQuery,each,bot):
                     msg.chat.id,
                     text
                 )
-                comprimio,partes = split(file,f'./{username}/',getBytes('1500MiB'))
+                comprimio,partes = split(compressionone(sub,file),f'./{username}/',getBytes('1500MiB'))
                 msg.delete()
                 subidas = str(partes -1)
                 if comprimio:
+                    print('Wa Subir')
                     cont = 1
                     msg = bot.send_message(msg.chat.id,'⏫**Subiendo '+subidas+' Partes**')
                     while cont < partes:

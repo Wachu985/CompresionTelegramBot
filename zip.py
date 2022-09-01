@@ -134,4 +134,13 @@ def compresion(file:str,dir :str):
             foo.write(os.path.join(root, f))
     foo.close()
     return './'+ file
+
+def compressionone(file:str,dir:str):
+    if file != '':
+        file = file
+    else:
+        file = 'nuevo.zip'
+    with ZipFile(file, 'w') as myzip:
+        myzip.write(dir)
+    return './'+ file
     
