@@ -54,6 +54,8 @@ def progressub(current, total,message,bots,filename,start):
 
 """============Progreso de Descarga de Youtube==============="""
 def progressytdl(current, total,filename,speed,message,bots):
+    print('entre')
+    print(message)
     porcent = int(current * 100 / total)
     if porcent % 8 == 0:
         try:
