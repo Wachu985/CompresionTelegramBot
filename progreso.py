@@ -68,12 +68,10 @@ def progressytdl(current, total,speed,filename,tiempo,message,bots):
         except:pass 
 
 """============Progreso de Descarga de Youtube==============="""
-def progressytdllist(current,speed,filename,tiempo,message,bots):
+def progressytdllist(current,filename,message,bots):
     filename =filename.split('/')[-1]
     try:
         text = f"⏬**Descargando de Youtube**\n\n💾**Nombre**: {filename} \n"
         text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
-        text += f'📥**Velocidad**: {round(float(speed)/1000000,2)} MiB/S\n'
-        text += f'📥**Tiempo**: {tiempo}s\n'
         bots.edit_message_text(message.chat.id,message.id,text)
     except:pass 
