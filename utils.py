@@ -230,7 +230,7 @@ def download_of_youtube(CallbackQuery,each,bot):
                     msg.chat.id,
                     text
                 )
-                comprimio,partes = split(file,f'./{msg.chat.username}/',getBytes('1500MiB'))
+                comprimio,partes = split(file,f'./{username}/',getBytes('1500MiB'))
                 msg.delete()
                 subidas = str(partes -1)
                 if comprimio:
@@ -239,7 +239,7 @@ def download_of_youtube(CallbackQuery,each,bot):
                     while cont < partes:
                         filename = sub.split(sep='.')[0]+'.zip.'+str('%03d' % (cont))
                         start = time.time()
-                        url_direct = f'{BOT_URL}/file/{msg.chat.username}/{quote(filename)}'
+                        url_direct = f'{BOT_URL}/file/{username}/{quote(filename)}'
                         enlace_directo = [
                             [InlineKeyboardButton(
                                 'Enlace Directo',
@@ -250,14 +250,14 @@ def download_of_youtube(CallbackQuery,each,bot):
                         reply_botton = InlineKeyboardMarkup(enlace_directo)
                         bot.send_document(
                             msg.chat.id,
-                            f'./{msg.chat.username}/'+sub.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)),
+                            f'./{username}/'+sub.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)),
                             reply_markup=reply_botton,
                             progress=progressub,
                             progress_args=(msg,bot,filename,start),
                             thumb='./Imagen.png',
                             caption=f'**Enlace Directo👇🏻:**\n\n`{url_direct}`'
                         )  
-                        os.remove(f'./{msg.chat.username}/'+sub.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)))
+                        os.remove(f'./{username}/'+sub.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)))
                         cont += 1 
                     msg.delete()
                 bot.send_message(msg.chat.id,'✅**Subido Correctamente**')
