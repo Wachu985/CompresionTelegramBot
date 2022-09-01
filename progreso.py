@@ -52,7 +52,7 @@ def progressub(current, total,message,bots,filename,start):
             bots.edit_message_text(message.chat.id,message.id,text)
         except:pass
 
-
+"""============Progreso de Descarga de Youtube==============="""
 def progressytdl(current, total,filename,speed,message,bots):
     porcent = int(current * 100 / total)
     if porcent % 8 == 0:
