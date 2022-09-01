@@ -234,7 +234,6 @@ def download_of_youtube(CallbackQuery,each,bot):
                 msg.delete()
                 subidas = str(partes -1)
                 if comprimio:
-                    print('Wa Subir')
                     cont = 1
                     msg = bot.send_message(msg.chat.id,'⏫**Subiendo '+subidas+' Partes**')
                     while cont < partes:
