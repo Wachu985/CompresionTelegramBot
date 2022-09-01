@@ -140,12 +140,13 @@ class YoutubeDL():
     def downloadlist(self,urls,res,username):
         playlist = self.getPlaylist(urls)
         file = './'+username+'/'+playlist+'/%(title)s.%(ext)s'
+        pingo = 'loco'
         ydl_opts = {
             'format': f'b[height<={res}]',
             'outtmpl': file,
             'restrict_filenames':False,
             'windowsfilenames':False,
-            'progress_hooks': [self.my_hook]
+            'progress_hooks': [lambda d: self.my_hook(d,pingo)],
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([urls])
