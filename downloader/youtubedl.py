@@ -14,7 +14,7 @@ import yt_dlp
 
 
 class YoutubeDL():
-    def __init__(self,downlad_progres=None,msg='',bot=None):
+    def __init__(self,downlad_progres=None,msg=None,bot=None):
         self.downlad_progres = downlad_progres
         self.msg = msg
         self.bot = bot
@@ -43,8 +43,7 @@ class YoutubeDL():
             current = d['downloaded_bytes']
             total = d['total_bytes']
             speed = d['speed']
-            print('entre')
-            self.downlad_progres(current, total,filename,speed,self.msg,self.bot)
+            self.downlad_progres(int(current), int(total),str(filename),int(speed),self.msg,self.bot)
         if d['status'] == 'finished':
             print('Done downloading, now converting ...')
 
