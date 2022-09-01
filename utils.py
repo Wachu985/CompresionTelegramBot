@@ -167,7 +167,7 @@ def download_of_youtube(CallbackQuery,each,bot):
     username = msg.chat.username
     url = CallbackQuery.message.reply_to_message.text.split(sep=' ')[-1]
     msg.delete()
-    msg = bot.send_message(msg.chat.id,'⏬**Descargando... Por favor Espere...**')
+    msg = bot.send_message(msg.chat.id,'⏬**Recopilando Información... Por favor Espere...**')
     try:
         twitch = False
         if 'twitch' in url:
