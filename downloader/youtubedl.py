@@ -43,10 +43,18 @@ class YoutubeDL():
             current = d['downloaded_bytes']
             total = d['total_bytes']
             speed = d['speed']
+            print(d)
             self.downlad_progres(int(current), int(total),filename,self.msg,self.bot)
         if d['status'] == 'finished':
             print('Done downloading, now converting ...')
 
+    def my_hook2(self,d):
+            filename = d['filename']
+            current = d['downloaded_bytes']
+            total = d['total_bytes']
+            speed = d['speed']
+            print(d)
+            self.downlad_progres(int(current), int(total),filename,self.msg,self.bot)
 
     """==================Informacion de el Video==================="""
     def info(self,url):
@@ -136,7 +144,7 @@ class YoutubeDL():
             'outtmpl': file,
             'restrict_filenames':False,
             'windowsfilenames':False,
-            'progress_hooks': [self.my_hook],
+            'progress_hooks': [self.my_hook2]
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([urls])
