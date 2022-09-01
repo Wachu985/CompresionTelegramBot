@@ -42,9 +42,12 @@ class YoutubeDL():
             filename = d['filename']
             current = d['downloaded_bytes']
             total = d['total_bytes']
-            speed = d['speed']
+            speed = 0
+            if d['speed'] is not None:
+                speed = d['speed']
+            tiempo = d['_eta_str']
             print(d)
-            self.downlad_progres(int(current), int(total),filename,self.msg,self.bot)
+            self.downlad_progres(int(current), int(total),speed,filename,tiempo,self.msg,self.bot)
         if d['status'] == 'finished':
             print('Done downloading, now converting ...')
 
@@ -53,7 +56,6 @@ class YoutubeDL():
             current = d['downloaded_bytes']
             total = d['total_bytes']
             speed = d['speed']
-            print(d)
             self.downlad_progres(int(current), int(total),filename,self.msg,self.bot)
 
     """==================Informacion de el Video==================="""
