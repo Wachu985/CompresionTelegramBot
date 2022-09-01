@@ -171,8 +171,9 @@ def download_of_youtube(CallbackQuery,each,bot):
     try:
         twitch = False
         if 'twitch' in url:
-            twitch = True
-        ytdl= YoutubeDL(progresstwitch,msg,bot,twitch)
+            ytdl= YoutubeDL(progresstwitch,msg,bot,True)
+        else:
+            ytdl= YoutubeDL(progressytdl,msg,bot,twitch)
         file,duration = ytdl.download(url,username,format)
         msg.delete()
         msg = bot.send_message(msg.chat.id,'✅**Descargado Correctamente..**')
