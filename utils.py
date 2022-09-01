@@ -9,7 +9,7 @@ from pyrogram import filters
 
 #
 from zip import split,compresion,getBytes,compressionone
-from progreso import progressub,progressytdl
+from progreso import progressub,progressytdl,progresstwitch
 from downloader.youtubedl import YoutubeDL
 from cfg import *
 
@@ -172,7 +172,7 @@ def download_of_youtube(CallbackQuery,each,bot):
         twitch = False
         if 'twitch' in url:
             twitch = True
-        ytdl= YoutubeDL(progressytdl,msg,bot,twitch)
+        ytdl= YoutubeDL(progresstwitch,msg,bot,twitch)
         file,duration = ytdl.download(url,username,format)
         msg.delete()
         msg = bot.send_message(msg.chat.id,'✅**Descargado Correctamente..**')
