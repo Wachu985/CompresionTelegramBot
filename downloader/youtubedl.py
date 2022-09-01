@@ -52,7 +52,7 @@ class YoutubeDL():
             if not self._isPlayList:
                 self.downlad_progres(int(current), int(total),speed,filename,tiempo,self.msg,self.bot)
             if self._isPlayList:
-                self.downlad_progres(int(current),speed,filename,tiempo,self.msg,self.bot)
+                self.bot.send_message(self.msg.chat.id,f'{int(current)}{filename}')
         if d['status'] == 'finished':
             print('Done downloading, now converting ...')
 
