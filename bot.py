@@ -290,7 +290,7 @@ def download(client,message):
                     msg = bot.send_message(message.chat.id, '✅**Subido Correctamente**')
                 elif os.path.getsize(name) > 1572864000:
                     msg.delete()
-                    sub = ''.join(filename.split(sep='.')[:-2])+'.zip'
+                    sub = ''.join(filename.split(sep='.')[:-1])+'.zip'
                     msg = bot.send_message(
                         msg.chat.id,
                         f'📚**Comprimiendo Archivos... Por Favor Espere..**'
@@ -363,20 +363,22 @@ def download(client,message):
                     )
                     msg.delete()
                 elif os.path.getsize(filename) > 1572864000:
-                    sub = str(file.split(sep='.')[-2])+'.zip'
+                    sub = ''.join(filename.split(sep='.')[:-1])+'.zip'
+                    msg.delete()
                     msg = bot.send_message(
                         msg.chat.id,
                         f'📚**Comprimiendo Archivos... Por Favor Espere..**'
                     )
-                    comprimio,partes = split(compressionone(sub,filename),f'./{msg.chat.username}/',getBytes('1500MiB'))
+                    comprimio,partes = split(compressionone(sub,filename),f'./{message.chat.username}/',getBytes('1500MiB'))
+                    msg.delete()
                     if comprimio:
                         cont = 1
                         subidas = str(partes -1)
                         msg = bot.send_message(msg.chat.id,'⏫**Subiendo '+subidas+' Partes**')
                         while cont < partes:
-                            filename = file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont))
+                            filename = sub+'.'+str('%03d' % (cont))
                             start = time.time()
-                            url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(file)}'
+                            url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename)}'
                             enlace_directo = [
                                 [InlineKeyboardButton(
                                     'Enlace Directo',
@@ -387,7 +389,7 @@ def download(client,message):
                             reply_botton = InlineKeyboardMarkup(enlace_directo)
                             bot.send_document(
                                 msg.chat.id,
-                                f'./{message.chat.username}/'+file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)),
+                                f'./{message.chat.username}/'+filename,
                                 reply_markup=reply_botton,
                                 progress=progressub,
                                 progress_args=(msg,bot,filename,start),
@@ -432,20 +434,21 @@ def download(client,message):
                     )
                     msg.delete()
                 elif os.path.getsize(file) > 1572864000:
-                    sub = ''.join(file.split(sep='.')[:-2])+'.zip'
+                    sub = ''.join(filename.split(sep='.')[:-1])+'.zip'
                     msg = bot.send_message(
                         msg.chat.id,
                         f'📚**Comprimiendo Archivos... Por Favor Espere..**'
                     )
-                    comprimio,partes = split(compressionone(sub,filename),f'./{msg.chat.username}/',getBytes('1500MiB'))
+                    comprimio,partes = split(compressionone(sub,filename),f'./{message.chat.username}/',getBytes('1500MiB'))
+                    msg.delete()
                     subidas = str(partes -1)
                     if comprimio:
                         cont = 1
                         msg = bot.send_message(msg.chat.id,'⏫**Subiendo '+subidas+' Partes**')
                         while cont < partes:
-                            filename = sub+str('%03d' % (cont))
+                            filename = sub+'.'+str('%03d' % (cont))
                             start = time.time()
-                            url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(file)}'
+                            url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename)}'
                             enlace_directo = [
                                 [InlineKeyboardButton(
                                     'Enlace Directo',
@@ -456,7 +459,7 @@ def download(client,message):
                             reply_botton = InlineKeyboardMarkup(enlace_directo)
                             bot.send_document(
                                 msg.chat.id,
-                                f'./{message.chat.username}/'+sub+str('%03d' % (cont)),
+                                f'./{message.chat.username}/'+filename,
                                 reply_markup=reply_botton,
                                 progress=progressub,
                                 progress_args=(msg,bot,filename,start),
