@@ -294,7 +294,8 @@ def download(client,message):
                         msg.chat.id,
                         f'📚**Comprimiendo Archivos... Por Favor Espere..**'
                     )
-                    comprimio,partes = split(compressionone(sub,name),f'./{msg.chat.username}/',getBytes('1500MiB'))
+                    comprimio,partes = split(compressionone(sub,name),f'./{message.chat.username}/',getBytes('1500MiB'))
+                    msg.delete()
                     if comprimio:
                         cont = 1
                         subidas = str(partes -1)
