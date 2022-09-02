@@ -469,6 +469,15 @@ def callback_progress(blocks, block_size, total_size,msg,bot,filename, bar_funct
     else:
         current_size = min(blocks*block_size, total_size)
     progress = bar_function(current_size, total_size, width)
+    porcent = int(current_size * 100 / total_size)
+    filename =filename.split('/')[-1]
+    if porcent % 5 == 0:
+        try:
+            text = f"⏬**Descargando de Youtube**\n\n💾**Nombre**: {filename} \n"
+            text += f'🗓**Total**:{round(total_size/1000000,2)} MiB \n'
+            text += f'📥**Descargado**: {round(current_size/1000000,2)}MiB\n'
+            bot.edit_message_text(msg.chat.id,msg.id,text)
+        except:pass
     if progress:
         sys.stdout.write("\r" + progress)
 
@@ -510,16 +519,6 @@ def download(url,msg,bot, out=None, bar=bar_adaptive):
     # set progress monitoring callback
     def callback_charged(blocks, block_size, total_size):
         # 'closure' to set bar drawing function in callback
-        global __current_size
-        if blocks == 0:  # first call
-            __current_size = 0
-        else:
-            __current_size += block_size
-        current_size = __current_size
-        text = f"⏬**Descargando de Youtube**\n\n"
-        text += f'🗓**Total**:{round(total_size/1000000,2)} MiB \n'
-        text += f'📥**Descargado**: {round(current_size/1000000,2)}MiB\n'
-        bot.send_message(msg.chat.id,text)
         callback_progress(blocks, block_size, total_size,msg,bot,prefix, bar_function=bar)
     if bar:
         callback = callback_charged
