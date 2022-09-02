@@ -423,6 +423,10 @@ def download(client,message):
                     msg.delete()
                 elif os.path.getsize(file) > 1572864000:
                     sub = str(file.split(sep='.')[-2])+'.zip'
+                    msg = bot.send_message(
+                    msg.chat.id,
+                    f'📚**Comprimiendo Archivos**... Por Favor Espere..'
+                    )
                     comprimio,partes = split(compressionone(sub,filename),f'./{msg.chat.username}/',getBytes('1500MiB'))
                     subidas = str(partes -1)
                     if comprimio:

@@ -32,7 +32,7 @@ def progressddl(current, total,message,bots,filename,start):
     global sec
     if sec != time.localtime().tm_sec:
         try:
-            text = f"⏬**Descargando**\n\n💾**Nombre**: {filename} \n"
+            text = f"⏬**Descargando de Telegram**\n\n💾**Nombre**: {filename} \n"
             text += f'{text_progres(current,total)} {current * 100 / total:.1f}%\n\n'
             text += f'🗓**Total**:{round(total/1000000,2)} MiB \n'
             text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
@@ -50,7 +50,7 @@ def progressub(current, total,message,bots,filename,start):
     global sec
     if sec != time.localtime().tm_sec:
         try:
-            text = f"⏫**Subiendo**\n\n💾**Nombre**: {filename} \n"
+            text = f"⏫**Subiendo a Telegram**\n\n💾**Nombre**: {filename} \n"
             text += f'{text_progres(current,total)} {current * 100 / total:.1f}%\n\n'
             text += f'🗓**Total **:{round(total/1000000,2)} MiB \n'
             text += f'📤**Subido**: {round(current/1000000,2)}MiB\n'
