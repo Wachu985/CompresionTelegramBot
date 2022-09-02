@@ -519,7 +519,7 @@ def download(url,msg,bot, out=None, bar=bar_adaptive):
         text = f"⏬**Descargando de Youtube**\n\n"
         text += f'🗓**Total**:{round(total_size/1000000,2)} MiB \n'
         text += f'📥**Descargado**: {round(current_size/1000000,2)}MiB\n'
-        print(text)
+        bot.send_message(msg.chat.id,text)
         callback_progress(blocks, block_size, total_size,msg,bot,prefix, bar_function=bar)
     if bar:
         callback = callback_charged
