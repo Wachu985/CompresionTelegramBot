@@ -298,7 +298,7 @@ def download(client,message):
                         while cont < partes:
                             filename = filename.split(sep='.')[0]+'.zip.'+str('%03d' % (cont))
                             start = time.time()
-                            url_direct = f'{BOT_URL}/file/{msg.chat.username}/{quote(filename)}'
+                            url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename)}'
                             enlace_directo = [
                                 [InlineKeyboardButton(
                                     'Enlace Directo',
@@ -309,7 +309,7 @@ def download(client,message):
                             reply_botton = InlineKeyboardMarkup(enlace_directo)
                             bot.send_document(
                                 msg.chat.id,
-                                f'./{msg.chat.username}/'+filename.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)),
+                                f'./{message.chat.username}/'+filename.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)),
                                 reply_markup=reply_botton,
                                 progress=progressub,
                                 progress_args=(msg,bot,filename,start),
@@ -366,7 +366,7 @@ def download(client,message):
                         while cont < partes:
                             filename = file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont))
                             start = time.time()
-                            url_direct = f'{BOT_URL}/file/{msg.chat.username}/{quote(file)}'
+                            url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(file)}'
                             enlace_directo = [
                                 [InlineKeyboardButton(
                                     'Enlace Directo',
@@ -377,7 +377,7 @@ def download(client,message):
                             reply_botton = InlineKeyboardMarkup(enlace_directo)
                             bot.send_document(
                                 msg.chat.id,
-                                f'./{msg.chat.username}/'+file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)),
+                                f'./{message.chat.username}/'+file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)),
                                 reply_markup=reply_botton,
                                 progress=progressub,
                                 progress_args=(msg,bot,filename,start),
@@ -431,7 +431,7 @@ def download(client,message):
                         while cont < partes:
                             filename = file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont))
                             start = time.time()
-                            url_direct = f'{BOT_URL}/file/{msg.chat.username}/{quote(file)}'
+                            url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(file)}'
                             enlace_directo = [
                                 [InlineKeyboardButton(
                                     'Enlace Directo',
@@ -442,7 +442,7 @@ def download(client,message):
                             reply_botton = InlineKeyboardMarkup(enlace_directo)
                             bot.send_document(
                                 msg.chat.id,
-                                f'./{msg.chat.username}/'+file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)),
+                                f'./{message.chat.username}/'+file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)),
                                 reply_markup=reply_botton,
                                 progress=progressub,
                                 progress_args=(msg,bot,filename,start),
