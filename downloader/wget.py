@@ -22,6 +22,7 @@ __version__ = "3.2"
 import sys, shutil, os
 import tempfile
 import math
+from time import localtime
 
 PY3K = sys.version_info >= (3, 0)
 if PY3K:
@@ -32,6 +33,7 @@ else:
   import urlparse
 
 
+sec = 0
 # --- workarounds for Python misbehavior ---
 
 # enable passing unicode arguments from command line in Python 2.x
@@ -469,15 +471,17 @@ def callback_progress(blocks, block_size, total_size,msg,bot,filename, bar_funct
     else:
         current_size = min(blocks*block_size, total_size)
     progress = bar_function(current_size, total_size, width)
-    porcent = int(current_size * 100 / total_size)
-    if porcent % 5 == 0:
+    porcent = int(current_size * 100 // total_size)
+    global sec
+    if sec != localtime().tm_sec:
         try:
             text = f"⏬**Descargando de Youtube**\n\n💾**Nombre**: {filename} \n"
             text += f'🗓**Total**: {round(total_size/1000000,2)} MiB \n'
             text += f'🗓**Porcent**: {porcent} % \n'
             text += f'📥**Descargado**: {round(current_size/1000000,2)}MiB\n'
-            #bot.edit_message_text(msg.chat.id,msg.id,text)
+            bot.edit_message_text(msg.chat.id,msg.id,text)
         except:pass
+        sec = localtime().tm_sec
     if progress:
         sys.stdout.write("\r" + progress)
 
