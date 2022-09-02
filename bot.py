@@ -289,6 +289,7 @@ def download(client,message):
                     msg.delete()
                     msg = bot.send_message(message.chat.id, '✅**Subido Correctamente**')
                 elif os.path.getsize(name) > 1572864000:
+                    msg.delete()
                     sub = ''.join(filename.split(sep='.')[:-2])+'.zip'
                     msg = bot.send_message(
                         msg.chat.id,
@@ -301,7 +302,7 @@ def download(client,message):
                         subidas = str(partes -1)
                         msg = bot.send_message(msg.chat.id,'⏫**Subiendo '+subidas+' Partes**')
                         while cont < partes:
-                            filename = sub+str('%03d' % (cont))
+                            filename = sub+'.'+str('%03d' % (cont))
                             start = time.time()
                             url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename)}'
                             enlace_directo = [
@@ -314,7 +315,7 @@ def download(client,message):
                             reply_botton = InlineKeyboardMarkup(enlace_directo)
                             bot.send_document(
                                 msg.chat.id,
-                                f'./{message.chat.username}/'+sub+str('%03d' % (cont)),
+                                f'./{message.chat.username}/'+sub+'.'+str('%03d' % (cont)),
                                 reply_markup=reply_botton,
                                 progress=progressub,
                                 progress_args=(msg,bot,filename,start),
