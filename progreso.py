@@ -88,8 +88,8 @@ def progresswget(current,total,filename,message,bots):
     if sec != time.localtime().tm_sec:
         try:
             text = f"⏬**Descargando de Youtube**\n\n💾**Nombre**: {filename} \n"
+            text += f'{text_progres(current,total)} {current * 100 // total:.1f}%\n\n'
             text += f'🗓**Total**: {round(total/1000000,2)} MiB \n'
-            text += f'🗓**Porcent**: {porcent} % \n'
             text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
             bots.edit_message_text(message.chat.id,message.id,text)
         except:pass
