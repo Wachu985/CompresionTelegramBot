@@ -444,7 +444,7 @@ __current_size = 0  # global state variable, which exists solely as a
                     # workaround against Python 3.3.0 regression
                     # http://bugs.python.org/issue16409
                     # fixed in Python 3.3.1
-def callback_progress(blocks, block_size, total_size,msg,bot,filename, bar_function):
+def callback_progress(blocks, block_size, total_size,msg,bot,filename,start, bar_function):
     """callback function for urlretrieve that is called when connection is
     created and when once for each block
 
