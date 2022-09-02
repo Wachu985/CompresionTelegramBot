@@ -23,10 +23,7 @@ from downloader.wget import download as downloadwget
 from server import download_file
 from downloader.mediafire import get
 
-#Prueba
-import requests
-import re
-from base64 import b64decode
+
 
 
 print('Iniciando BOT')
@@ -42,22 +39,6 @@ yturls = []
 bot = Client('CompresionWachu',api_id=API_ID,api_hash=API_HASH,bot_token=BOT_TOKEN)
 Conversation(bot)
 
-
-def gdtot(url: str) -> str:
-    """ Gdtot google drive link generator
-    By https://github.com/xcscxr """
-
-    match = re.findall(r'https?://(.+)\.gdtot\.(.+)\/\S+\/\S+', url)[0]
-
-    with requests.Session() as client:
-        res = client.get(url)
-        res = client.get(f"https://{match[0]}.gdtot.{match[1]}/dld?id={url.split('/')[-1]}")
-    matches = re.findall('gd=(.*?)&', res.text)
-    try:
-        decoded_id = b64decode(str(matches[0])).decode('utf-8')
-    except:
-        raise Exception("ERROR: Try in your broswer, mostly file not found or user limit exceeded!")
-    return f'https://drive.google.com/open?id={decoded_id}'
 
 """============Metodo Start============="""
 @bot.on_message(filters.command('start') & filters.private)
@@ -308,7 +289,8 @@ def download(client,message):
                     msg.delete()
                     msg = bot.send_message(message.chat.id, '✅**Subido Correctamente**')
                 elif os.path.getsize(name) > 1572864000:
-                    comprimio,partes = split(compressionone(filename,name),f'./{msg.chat.username}/',getBytes('1500MiB'))
+                    sub = str(filename.split(sep='.')[-2])+'.zip'
+                    comprimio,partes = split(compressionone(sub,name),f'./{msg.chat.username}/',getBytes('1500MiB'))
                     if comprimio:
                         cont = 1
                         subidas = str(partes -1)
@@ -348,9 +330,7 @@ def download(client,message):
                 os.mkdir(save)
             url = message.text
             msg = bot.send_message(message.chat.id, "⏬**Descargando Archivo. Por Favor Espere...**")
-            
-            filename = downloadwget(gdtot(url),msg,bot,out=f'./{message.chat.username}/',bar=progresswget)
-            #filename = gdown.download(url=url, output=f"./{message.chat.username}/")
+            filename = gdown.download(url=url, output=f"./{message.chat.username}/")
             file = filename.split("/")[-1]
             bot.edit_message_text(message.chat.id, msg.id, f"✅**Descargado Correctamente**")
             #Si el Tamaño de el Archivo es menor q 1500MiB 
@@ -377,7 +357,8 @@ def download(client,message):
                     )
                     msg.delete()
                 elif os.path.getsize(filename) > 1572864000:
-                    comprimio,partes = split(compressionone(file,filename),f'./{msg.chat.username}/',getBytes('1500MiB'))
+                    sub = str(file.split(sep='.')[-2])+'.zip'
+                    comprimio,partes = split(compressionone(sub,filename),f'./{msg.chat.username}/',getBytes('1500MiB'))
                     if comprimio:
                         cont = 1
                         subidas = str(partes -1)
@@ -441,7 +422,8 @@ def download(client,message):
                     )
                     msg.delete()
                 elif os.path.getsize(file) > 1572864000:
-                    comprimio,partes = split(name,f'./{msg.chat.username}/',getBytes('1500MiB'))
+                    sub = str(file.split(sep='.')[-2])+'.zip'
+                    comprimio,partes = split(compressionone(sub,filename),f'./{msg.chat.username}/',getBytes('1500MiB'))
                     subidas = str(partes -1)
                     if comprimio:
                         cont = 1
