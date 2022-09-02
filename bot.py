@@ -20,7 +20,7 @@ from cfg import *
 from utils import *
 from progreso import progressub,progressddl,progressytdl,progresswget
 from downloader.youtubedl import YoutubeDL
-from downloader.wget import download as dow
+from downloader.wget import download as downloadwget
 from server import download_file
 from downloader.mediafire import get
 
@@ -262,7 +262,7 @@ def download(client,message):
             if not os.path.exists(save):
                 os.mkdir(save)
             msg = bot.send_message(message.chat.id, '⏬**Descargando Archivo. Por Favor Espere....**')
-            name = wget.download(get(message.text),f'./{message.chat.username}')
+            name = downloadwget(get(message.text),msg,bot,out=f'./{message.chat.username}/',bar=progresswget)
             filename = name.split("/")[-1]
             msg = bot.edit_message_text(message.chat.id,msg.id, '✅**Archivo Descargado Correctamente**')
             #Si el Tamaño de el Archivo es menor q 1500MiB 
@@ -393,7 +393,7 @@ def download(client,message):
             if not os.path.exists(save):
                 os.mkdir(save)
             msg = bot.send_message(message.chat.id,'⏬**Descargando Archivo. Por Favor Espere....**')
-            filename = dow(message.text,msg,bot,out=f'./{message.chat.username}/',bar=progresswget)
+            filename = downloadwget(message.text,msg,bot,out=f'./{message.chat.username}/',bar=progresswget)
             file = filename.split("/")[-1]
             msg = bot.edit_message_text(message.chat.id,msg.id,f'✅**Archivo Descargado Correctamente**')
             if os.path.exists(filename):
