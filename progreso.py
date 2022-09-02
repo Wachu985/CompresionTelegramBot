@@ -91,6 +91,7 @@ def progresstwitch(current,speed,filename,tiempo,message,bots):
         sec = time.localtime().tm_sec
 
 
+"""==============Progreso de Descargas Directas=============="""
 def progresswget(current,total,filename,start,message,bots):
     porcent = int(current * 100 // total)
     act = time.time() - start
