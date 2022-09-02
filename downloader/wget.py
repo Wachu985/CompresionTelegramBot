@@ -22,7 +22,7 @@ __version__ = "3.2"
 import sys, shutil, os
 import tempfile
 import math
-from time import localtime
+import time
 
 PY3K = sys.version_info >= (3, 0)
 if PY3K:
@@ -470,7 +470,7 @@ def callback_progress(blocks, block_size, total_size,msg,bot,filename, bar_funct
         current_size = __current_size
     else:
         current_size = min(blocks*block_size, total_size)
-    progress = bar_function(current_size, total_size, filename,msg,bot)    
+    progress = bar_function(current_size, total_size, filename,start,msg,bot)    
     if progress:
         sys.stdout.write("\r" + progress)
 
@@ -509,10 +509,11 @@ def download(url,msg,bot, out=None, bar=bar_adaptive):
     os.close(fd)
     os.unlink(tmpfile)
 
+    start = time.time()
     # set progress monitoring callback
     def callback_charged(blocks, block_size, total_size):
         # 'closure' to set bar drawing function in callback
-        callback_progress(blocks, block_size, total_size,msg,bot,prefix, bar_function=bar)
+        callback_progress(blocks, block_size, total_size,msg,bot,prefix,start, bar_function=bar)
     if bar:
         callback = callback_charged
     else:

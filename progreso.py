@@ -82,8 +82,10 @@ def progresstwitch(current,speed,filename,tiempo,message,bots):
     except:pass 
 
 
-def progresswget(current,total,filename,message,bots):
+def progresswget(current,total,filename,start,message,bots):
     porcent = int(current * 100 // total)
+    act = time.time() - start
+    velo = round((round(current/1000000,2)/act),2)
     global sec
     if sec != time.localtime().tm_sec:
         try:
@@ -91,6 +93,7 @@ def progresswget(current,total,filename,message,bots):
             text += f'{text_progres(current,total)} {current * 100 // total:.1f}%\n\n'
             text += f'🗓**Total**: {round(total/1000000,2)} MiB \n'
             text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
+            text += f'📥**Velocidad**: {velo} MiB/S\n'
             bots.edit_message_text(message.chat.id,message.id,text)
         except:pass
         sec = time.localtime().tm_sec
