@@ -471,11 +471,11 @@ def callback_progress(blocks, block_size, total_size,msg,bot,filename, bar_funct
     progress = bar_function(current_size, total_size, width)
     porcent = int(current_size * 100 / total_size)
     filename =filename.split('/')[-1]
-    if porcent % 10 == 0:
+    if porcent % 5 == 0:
         try:
             text = f"⏬**Descargando de Youtube**\n\n💾**Nombre**: {filename} \n"
             text += f'🗓**Total**:{round(total_size/1000000,2)} MiB \n'
-            text += f'📥**Descargado**: {round(current_size/1000000,2)}MiB\n'
+            text += f'📥**Descargado**: {round(current_size,2)}MiB\n'
             bot.edit_message_text(msg.chat.id,msg.id,text)
         except:pass
     if progress:
