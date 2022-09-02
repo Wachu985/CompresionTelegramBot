@@ -475,6 +475,7 @@ def callback_progress(blocks, block_size, total_size,msg,bot,filename, bar_funct
         try:
             text = f"⏬**Descargando de Youtube**\n\n💾**Nombre**: {filename} \n"
             text += f'🗓**Total**:{round(total_size/1000000,2)} MiB \n'
+            text += f'🗓**Porcent**:{porcent} % \n'
             text += f'📥**Descargado**: {round(current_size,2)}MiB\n'
             bot.edit_message_text(msg.chat.id,msg.id,text)
         except:pass
