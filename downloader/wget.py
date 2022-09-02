@@ -471,7 +471,7 @@ def callback_progress(blocks, block_size, total_size,msg,bot,filename, bar_funct
     progress = bar_function(current_size, total_size, width)
     porcent = int(current_size * 100 / total_size)
     filename =filename.split('/')[-1]
-    if porcent % 1 == 0:
+    if porcent % 10 == 0:
         try:
             text = f"⏬**Descargando de Youtube**\n\n💾**Nombre**: {filename} \n"
             text += f'🗓**Total**:{round(total_size/1000000,2)} MiB \n'
