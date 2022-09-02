@@ -63,16 +63,17 @@ def progressytdl(current, total,speed,filename,tiempo,message,bots):
             text += f'🗓**Total**:{round(total/1000000,2)} MiB \n'
             text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
             text += f'📥**Velocidad**: {round(float(speed)/1000000,2)} MiB/S\n'
-            text += f'📥**Tiempo**: {tiempo}\n'
+            text += f'⏱**Tiempo**: {tiempo}\n'
             bots.edit_message_text(message.chat.id,message.id,text)
         except:pass 
 
+"""=============Progreso de Descarga de Twitch================"""
 def progresstwitch(current,speed,filename,tiempo,message,bots):
     filename =filename.split('/')[-1]
     try:
         text = f"⏬**Descargando de Twitch**\n\n💾**Nombre**: {filename} \n\n"
         text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
         text += f'📥**Velocidad**: {round(float(speed)/1000000,2)} MiB/S\n'
-        text += f'📥**Tiempo**: {tiempo}\n'
+        text += f'⏱**Tiempo**: {tiempo}\n'
         bots.edit_message_text(message.chat.id,message.id,text)
     except:pass 

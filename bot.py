@@ -288,8 +288,8 @@ def download(client,message):
                     )
                     msg.delete()
                     msg = bot.send_message(message.chat.id, '✅**Subido Correctamente**')
-                elif os.path.getsize(file) > 1572864000:
-                    comprimio,partes = split(name,f'./{msg.chat.username}/',getBytes('1500MiB'))
+                elif os.path.getsize(name) > 1572864000:
+                    comprimio,partes = split(compressionone(filename,name),f'./{msg.chat.username}/',getBytes('1500MiB'))
                     if comprimio:
                         cont = 1
                         msg = bot.send_message(msg.chat.id,'⏫**Subiendo '+subidas+' Partes**')
@@ -314,7 +314,6 @@ def download(client,message):
                                 thumb='./Imagen.png',
                                 caption=f'**Enlace Directo👇🏻:**\n\n`{url_direct}`'
                             )  
-                            os.remove(f'./{msg.chat.username}/'+filename.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)))
                             cont += 1 
                         msg.delete()
                 bot.send_message(msg.chat.id,'✅**Subido Correctamente**')
@@ -333,8 +332,8 @@ def download(client,message):
             file = filename.split("/")[-1]
             bot.edit_message_text(message.chat.id, msg.id, f"✅**Descargado Correctamente**")
             #Si el Tamaño de el Archivo es menor q 1500MiB 
-            if os.path.exists(file):
-                if os.path.getsize(file) < 1572864000:
+            if os.path.exists(filename):
+                if os.path.getsize(filename) < 1572864000:
                     url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename.split("/")[-1])}'
                     enlace_directo = [
                         [InlineKeyboardButton(
@@ -355,8 +354,8 @@ def download(client,message):
                         caption=f"**Enlace Directo👇🏻:**\n\n`{url_direct}`"
                     )
                     msg.delete()
-                elif os.path.getsize(file) > 1572864000:
-                    comprimio,partes = split(file,f'./{msg.chat.username}/',getBytes('1500MiB'))
+                elif os.path.getsize(filename) > 1572864000:
+                    comprimio,partes = split(compressionone(file,filename),f'./{msg.chat.username}/',getBytes('1500MiB'))
                     if comprimio:
                         cont = 1
                         msg = bot.send_message(msg.chat.id,'⏫**Subiendo '+subidas+' Partes**')
@@ -380,8 +379,7 @@ def download(client,message):
                                 progress_args=(msg,bot,filename,start),
                                 thumb='./Imagen.png',
                                 caption=f'**Enlace Directo👇🏻:**\n\n`{url_direct}`'
-                            )  
-                            os.remove(f'./{msg.chat.username}/'+file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)))
+                            )
                             cont += 1 
                         msg.delete()
                 bot.send_message(msg.chat.id,'✅**Subido Correctamente**')
@@ -395,10 +393,10 @@ def download(client,message):
                 os.mkdir(save)
             msg = bot.send_message(message.chat.id,'⏬**Descargando Archivo. Por Favor Espere....**')
             filename = wget.download(message.text,f'./{message.chat.username}/')
-            file = name.split("/")[-1]
+            file = filename.split("/")[-1]
             msg = bot.edit_message_text(message.chat.id,msg.id,f'✅**Archivo Descargado Correctamente**')
-            if os.path.exists(name):
-                if os.path.getsize(name) < 1572864000:
+            if os.path.exists(filename):
+                if os.path.getsize(filename) < 1572864000:
                     url_direct = f'{BOT_URL}/file/{message.chat.username}/{quote(filename.split("/")[-1])}'
                     enlace_directo = [
                         [InlineKeyboardButton(
@@ -445,7 +443,6 @@ def download(client,message):
                                 thumb='./Imagen.png',
                                 caption=f'**Enlace Directo👇🏻:**\n\n`{url_direct}`'
                             )  
-                            os.remove(f'./{msg.chat.username}/'+file.split(sep='.')[0]+'.zip.'+str('%03d' % (cont)))
                             cont += 1 
                         msg.delete()
                 bot.send_message(msg.chat.id,'✅**Subido Correctamente**')
@@ -494,13 +491,18 @@ async def despertar(sleep_time=TIME_WAKE * 60):
 """================Incio del Bot=============="""
 async def run_server():
     await bot.start()
-    print('Bot Iniciado')
+    print('=========Bot Iniciado=========')
     await runner.setup()
-    print('Iniciando Server')
+    print('=========Iniciando Server=========')
     await web.TCPSite(runner, host='0.0.0.0', port=os.getenv('PORT')).start()
-    print('Server Iniciado')
+    print('=========Server Iniciado=========')
 
 if __name__=='__main__':
-    bot.loop.run_until_complete(run_server())
-    bot.loop.run_until_complete(despertar())
-    idle()
+    try:
+        bot.loop.run_until_complete(run_server())
+        bot.loop.run_until_complete(despertar())
+        idle()
+    except:
+        bot.loop.run_until_complete(run_server())
+        bot.loop.run_until_complete(despertar())
+        idle()
