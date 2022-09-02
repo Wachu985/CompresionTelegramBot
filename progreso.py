@@ -1,5 +1,8 @@
 import time
 
+"""=========Variables Globales=========="""
+sec = 0
+
 """==========Barra de Progreso============"""
 def text_progres(index,max):
 	try:
@@ -77,3 +80,17 @@ def progresstwitch(current,speed,filename,tiempo,message,bots):
         text += f'⏱**Tiempo**: {tiempo}\n'
         bots.edit_message_text(message.chat.id,message.id,text)
     except:pass 
+
+
+def progresswget(current,total,filename,message,bots):
+    porcent = int(current * 100 // total)
+    global sec
+    if sec != time.localtime().tm_sec:
+        try:
+            text = f"⏬**Descargando de Youtube**\n\n💾**Nombre**: {filename} \n"
+            text += f'🗓**Total**: {round(total/1000000,2)} MiB \n'
+            text += f'🗓**Porcent**: {porcent} % \n'
+            text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
+            bots.edit_message_text(message.chat.id,message.id,text)
+        except:pass
+        sec = time.localtime().tm_sec

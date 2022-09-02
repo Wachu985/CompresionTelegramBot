@@ -18,7 +18,7 @@ import gdown
 #
 from cfg import *
 from utils import *
-from progreso import progressub,progressddl,progressytdl
+from progreso import progressub,progressddl,progressytdl,progresswget
 from downloader.youtubedl import YoutubeDL
 from downloader.wget import download as dow
 from server import download_file
@@ -393,7 +393,7 @@ def download(client,message):
             if not os.path.exists(save):
                 os.mkdir(save)
             msg = bot.send_message(message.chat.id,'⏬**Descargando Archivo. Por Favor Espere....**')
-            filename = dow(message.text,msg,bot,out=f'./{message.chat.username}/')
+            filename = dow(message.text,msg,bot,out=f'./{message.chat.username}/',bar=progresswget)
             file = filename.split("/")[-1]
             msg = bot.edit_message_text(message.chat.id,msg.id,f'✅**Archivo Descargado Correctamente**')
             if os.path.exists(filename):
