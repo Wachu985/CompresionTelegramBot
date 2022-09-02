@@ -22,7 +22,7 @@ def text_progres(index,max):
 
 
 """============Progreso de Descarga==========="""
-def progressddl(current, total,message,bots,filename,start,):
+def progressddl(current, total,message,bots,filename,start):
     porcent = int(current * 100 / total)
     act = time.time() - start
     velo = round((round(current/1000000,2)/act),2)

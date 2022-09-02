@@ -442,7 +442,7 @@ __current_size = 0  # global state variable, which exists solely as a
                     # workaround against Python 3.3.0 regression
                     # http://bugs.python.org/issue16409
                     # fixed in Python 3.3.1
-def callback_progress(blocks, block_size, total_size,msg,bot, bar_function):
+def callback_progress(blocks, block_size, total_size,msg,bot,filename, bar_function):
     """callback function for urlretrieve that is called when connection is
     created and when once for each block
 
@@ -469,7 +469,10 @@ def callback_progress(blocks, block_size, total_size,msg,bot, bar_function):
     else:
         current_size = min(blocks*block_size, total_size)
     progress = bar_function(current_size, total_size, width)
-    bot.edit_message_text(msg.chat.id,msg.id,'Pingolo')
+    text = f"⏬**Descargando de Youtube**\n\n💾**Nombre**: {filename} \n"
+    text += f'🗓**Total**:{round(total_size/1000000,2)} MiB \n'
+    text += f'📥**Descargado**: {round(current_size/1000000,2)}MiB\n'
+    bot.edit_message_text(msg.chat.id,msg.id,text)
     if progress:
         sys.stdout.write("\r" + progress)
 
@@ -511,7 +514,7 @@ def download(url,msg,bot, out=None, bar=bar_adaptive):
     # set progress monitoring callback
     def callback_charged(blocks, block_size, total_size):
         # 'closure' to set bar drawing function in callback
-        callback_progress(blocks, block_size, total_size,msg,bot, bar_function=bar)
+        callback_progress(blocks, block_size, total_size,msg,bot,prefix, bar_function=bar)
     if bar:
         callback = callback_charged
     else:
