@@ -289,7 +289,7 @@ def download(client,message):
                     msg.delete()
                     msg = bot.send_message(message.chat.id, '✅**Subido Correctamente**')
                 elif os.path.getsize(name) > 1572864000:
-                    sub = ''.join(file.split(sep='.')[:-2])+'.zip'
+                    sub = ''.join(filename.split(sep='.')[:-2])+'.zip'
                     msg = bot.send_message(
                         msg.chat.id,
                         f'📚**Comprimiendo Archivos... Por Favor Espere..**'
