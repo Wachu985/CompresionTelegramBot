@@ -516,7 +516,7 @@ def download(url,msg,bot, out=None, bar=bar_adaptive):
         else:
             __current_size += block_size
             current_size = __current_size
-        text = f"⏬**Descargando de Youtube**\n\n💾**Nombre**: {filename} \n"
+        text = f"⏬**Descargando de Youtube**\n\n"
         text += f'🗓**Total**:{round(total_size/1000000,2)} MiB \n'
         text += f'📥**Descargado**: {round(current_size/1000000,2)}MiB\n'
         bot.edit_message_text(msg.chat.id,msg.id,text)
