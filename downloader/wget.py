@@ -512,7 +512,7 @@ def download(url,msg,bot, out=None, bar=bar_adaptive):
     os.unlink(tmpfile)
 
     # set progress monitoring callback
-    def callback_charged(blocks, block_size, total_size,msg,bot):
+    def callback_charged(blocks, block_size, total_size):
         # 'closure' to set bar drawing function in callback
         callback_progress(blocks, block_size, total_size,msg,bot,prefix, bar_function=bar)
     if bar:
