@@ -98,7 +98,7 @@ def progresswget(current,total,filename,start,message,bots):
     global sec
     if sec != time.localtime().tm_sec:
         try:
-            text = f"⏬**Descargando de Youtube**\n\n💾**Nombre**: {filename} \n"
+            text = f"⏬**Descargando Para el Servidor**\n\n💾**Nombre**: {filename} \n"
             text += f'{text_progres(current,total)} {current * 100 // total:.1f}%\n\n'
             text += f'🗓**Total**: {round(total/1000000,2)} MiB \n'
             text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
