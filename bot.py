@@ -363,7 +363,7 @@ def download(client,message):
                     )
                     msg.delete()
                 elif os.path.getsize(filename) > 1572864000:
-                    sub = ''.join(filename.split(sep='.')[:-1])+'.zip'
+                    sub = ''.join(file.split(sep='.')[:-1])+'.zip'
                     msg.delete()
                     msg = bot.send_message(
                         msg.chat.id,
@@ -434,7 +434,7 @@ def download(client,message):
                     )
                     msg.delete()
                 elif os.path.getsize(file) > 1572864000:
-                    sub = ''.join(filename.split(sep='.')[:-1])+'.zip'
+                    sub = ''.join(file.split(sep='.')[:-1])+'.zip'
                     msg = bot.send_message(
                         msg.chat.id,
                         f'📚**Comprimiendo Archivos... Por Favor Espere..**'
