@@ -29,7 +29,8 @@ def progressddl(current, total,message,bots,filename,start):
     porcent = int(current * 100 / total)
     act = time.time() - start
     velo = round((round(current/1000000,2)/act),2)
-    if porcent % 8 == 0:
+    global sec
+    if sec != time.localtime().tm_sec:
         try:
             text = f"⏬**Descargando**\n\n💾**Nombre**: {filename} \n"
             text += f'{text_progres(current,total)} {current * 100 / total:.1f}%\n\n'
@@ -38,6 +39,7 @@ def progressddl(current, total,message,bots,filename,start):
             text += f'📥**Velocidad**: {velo} MiB/S\n'
             bots.edit_message_text(message.chat.id,message.id,text)
         except:pass 
+        sec = time.localtime().tm_sec
 
 
 """============Progreso de Subida==============="""
@@ -45,7 +47,8 @@ def progressub(current, total,message,bots,filename,start):
     porcent = int(current * 100 / total)
     act = time.time() - start
     velo = round((round(current/1000000,2)/act),2)
-    if porcent % 20 == 0:
+    global sec
+    if sec != time.localtime().tm_sec:
         try:
             text = f"⏫**Subiendo**\n\n💾**Nombre**: {filename} \n"
             text += f'{text_progres(current,total)} {current * 100 / total:.1f}%\n\n'
@@ -54,12 +57,14 @@ def progressub(current, total,message,bots,filename,start):
             text += f'📥**Velocidad**: {velo} MiB/S\n'
             bots.edit_message_text(message.chat.id,message.id,text)
         except:pass
+        sec = time.localtime().tm_sec
 
 """============Progreso de Descarga de Youtube==============="""
 def progressytdl(current, total,speed,filename,tiempo,message,bots):
     porcent = int(current * 100 / total)
     filename =filename.split('/')[-1]
-    if porcent % 5 == 0:
+    global sec
+    if sec != time.localtime().tm_sec:
         try:
             text = f"⏬**Descargando de Youtube**\n\n💾**Nombre**: {filename} \n"
             text += f'{text_progres(current,total)} {current * 100 / total:.1f}%\n\n'
@@ -69,17 +74,21 @@ def progressytdl(current, total,speed,filename,tiempo,message,bots):
             text += f'⏱**Tiempo**: {tiempo}\n'
             bots.edit_message_text(message.chat.id,message.id,text)
         except:pass 
+        sec = time.localtime().tm_sec
 
 """=============Progreso de Descarga de Twitch================"""
 def progresstwitch(current,speed,filename,tiempo,message,bots):
     filename =filename.split('/')[-1]
-    try:
-        text = f"⏬**Descargando de Twitch**\n\n💾**Nombre**: {filename} \n\n"
-        text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
-        text += f'📥**Velocidad**: {round(float(speed)/1000000,2)} MiB/S\n'
-        text += f'⏱**Tiempo**: {tiempo}\n'
-        bots.edit_message_text(message.chat.id,message.id,text)
-    except:pass 
+    global sec
+    if sec != time.localtime().tm_sec:
+        try:
+            text = f"⏬**Descargando de Twitch**\n\n💾**Nombre**: {filename} \n\n"
+            text += f'📥**Descargado**: {round(current/1000000,2)}MiB\n'
+            text += f'📥**Velocidad**: {round(float(speed)/1000000,2)} MiB/S\n'
+            text += f'⏱**Tiempo**: {tiempo}\n'
+            bots.edit_message_text(message.chat.id,message.id,text)
+        except:pass 
+        sec = time.localtime().tm_sec
 
 
 def progresswget(current,total,filename,start,message,bots):
