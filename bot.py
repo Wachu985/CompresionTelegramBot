@@ -433,7 +433,7 @@ def download(client,message):
                         caption=f"**Enlace Directo👇🏻**:\n`{url_direct}`"
                     )
                     msg.delete()
-                elif os.path.getsize(file) > 1572864000:
+                elif os.path.getsize(filename) > 1572864000:
                     sub = ''.join(file.split(sep='.')[:-1])+'.zip'
                     msg = bot.send_message(
                         msg.chat.id,
