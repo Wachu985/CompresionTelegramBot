@@ -289,7 +289,11 @@ def download(client,message):
                     msg.delete()
                     msg = bot.send_message(message.chat.id, '✅**Subido Correctamente**')
                 elif os.path.getsize(name) > 1572864000:
-                    sub = ''.join(str(file.split(sep='.')[:-2]))+'.zip'
+                    sub = ''.join(file.split(sep='.')[:-2])+'.zip'
+                    msg = bot.send_message(
+                        msg.chat.id,
+                        f'📚**Comprimiendo Archivos... Por Favor Espere..**'
+                    )
                     comprimio,partes = split(compressionone(sub,name),f'./{msg.chat.username}/',getBytes('1500MiB'))
                     if comprimio:
                         cont = 1
@@ -426,7 +430,7 @@ def download(client,message):
                     )
                     msg.delete()
                 elif os.path.getsize(file) > 1572864000:
-                    sub = str(file.split(sep='.')[:-2]).join()+'.zip'
+                    sub = ''.join(file.split(sep='.')[:-2])+'.zip'
                     msg = bot.send_message(
                         msg.chat.id,
                         f'📚**Comprimiendo Archivos... Por Favor Espere..**'
